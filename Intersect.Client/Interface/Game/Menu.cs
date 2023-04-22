@@ -1,4 +1,4 @@
-﻿using Intersect.Client.Core;
+using Intersect.Client.Core;
 using Intersect.Client.Framework.File_Management;
 using Intersect.Client.Framework.Graphics;
 using Intersect.Client.Framework.Gwen.Control;
@@ -8,6 +8,7 @@ using Intersect.Client.Interface.Game.Character;
 using Intersect.Client.Interface.Game.Chat;
 using Intersect.Client.Interface.Game.Inventory;
 using Intersect.Client.Interface.Game.Spells;
+using Intersect.Client.Interface.Game.Skills;
 using Intersect.Client.Localization;
 using Intersect.Client.Networking;
 using Intersect.Enums;
@@ -62,6 +63,12 @@ namespace Intersect.Client.Interface.Game
 
         private readonly SpellsWindow mSpellsWindow;
 
+        private readonly ImagePanel mSkillsBackground;
+
+        private readonly Button mSkillsButton;
+
+        private readonly SkillsWindow mSkillsWindow;
+
         private readonly MapItemWindow mMapItemWindow;
 
         private readonly ImagePanel mGuildBackground;
@@ -101,6 +108,11 @@ namespace Intersect.Client.Interface.Game
             mSpellsButton.SetToolTipText(Strings.GameMenu.spells);
             mSpellsButton.Clicked += SpellsButton_Clicked;
 
+            mSkillsBackground = new ImagePanel(mMenuContainer, "SkillsContainer");
+            mSkillsButton = new Button(mSkillsBackground, "SkillsButton");
+            mSkillsButton.SetToolTipText(Strings.GameMenu.skills);
+            mSkillsButton.Clicked += SkillsButton_Clicked;
+
             mCharacterBackground = new ImagePanel(mMenuContainer, "CharacterContainer");
             mCharacterButton = new Button(mCharacterBackground, "CharacterButton");
             mCharacterButton.SetToolTipText(Strings.GameMenu.character);
@@ -138,6 +150,7 @@ namespace Intersect.Client.Interface.Game
             mFriendsWindow = new FriendsWindow(gameCanvas);
             mInventoryWindow = new InventoryWindow(gameCanvas);
             mSpellsWindow = new SpellsWindow(gameCanvas);
+            mSkillsWindow = new SkillsWindow(gameCanvas);
             mCharacterWindow = new CharacterWindow(gameCanvas);
             mQuestsWindow = new QuestsWindow(gameCanvas);
             mMapItemWindow = new MapItemWindow(gameCanvas);
@@ -149,6 +162,7 @@ namespace Intersect.Client.Interface.Game
         {
             mInventoryWindow.Update();
             mSpellsWindow.Update();
+            mSkillsWindow.Update();
             mCharacterWindow.Update();
             mPartyWindow.Update();
             mFriendsWindow.Update();
@@ -180,6 +194,7 @@ namespace Intersect.Client.Interface.Game
             mPartyWindow.Hide();
             mQuestsWindow.Hide();
             mSpellsWindow.Hide();
+            mSkillsWindow.Hide();
             mGuildWindow.Hide();
         }
 
@@ -297,6 +312,19 @@ namespace Intersect.Client.Interface.Game
             }
         }
 
+        public void ToggleSkillsWindow()
+        {
+            if (mSkillsWindow.IsVisible())
+            {
+                mSkillsWindow.Hide();
+            }
+            else
+            {
+                HideWindows();
+                mSkillsWindow.Show();
+            }
+        }
+
         public void CloseAllWindows()
         {
             mCharacterWindow.Hide();
@@ -312,6 +340,8 @@ namespace Intersect.Client.Interface.Game
             mPartyWindow.Hide();
 
             mGuildWindow.Hide();
+
+            mSkillsWindow.Hide();
         }
 
         public bool HasWindowsOpen()
@@ -339,6 +369,11 @@ namespace Intersect.Client.Interface.Game
             }
 
             if (mSpellsWindow.IsVisible())
+            {
+                windowsOpen = true;
+            }
+
+            if (mSkillsWindow.IsVisible())
             {
                 windowsOpen = true;
             }
@@ -397,6 +432,11 @@ namespace Intersect.Client.Interface.Game
         private void SpellsButton_Clicked(Base sender, ClickedEventArgs arguments)
         {
             ToggleSpellsWindow();
+        }
+
+        private void SkillsButton_Clicked(Base sender, ClickedEventArgs arguments)
+        {
+            ToggleSkillsWindow();
         }
 
         private void CharacterButton_Clicked(Base sender, ClickedEventArgs arguments)

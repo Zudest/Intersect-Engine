@@ -987,6 +987,8 @@ namespace Intersect.Client.Localization
 
             public static LocalizedString spells = @"Spell Book";
 
+            public static LocalizedString skills = @"Skills";
+
         }
 
         public partial struct General
@@ -2242,6 +2244,20 @@ namespace Intersect.Client.Localization
 
             public static LocalizedString title = @"Spells";
 
+        }
+
+        public partial struct Skills
+        {
+            public static LocalizedString title = @"Skills";
+        }
+
+        public partial struct SkillDesc
+        {
+            public static LocalizedString desc = @"{00}";
+
+            public static LocalizedString skilllevel = @"Level: {00} / {01}";
+
+            public static LocalizedString experience = @"Exp: {00} / {01}";
         }
 
         public partial struct Trading

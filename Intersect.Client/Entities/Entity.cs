@@ -14,6 +14,7 @@ using Intersect.Client.Framework.Maps;
 using Intersect.Client.General;
 using Intersect.Client.Items;
 using Intersect.Client.Localization;
+using Intersect.Client.Skills;
 using Intersect.Client.Spells;
 using Intersect.Enums;
 using Intersect.GameObjects;
@@ -177,6 +178,8 @@ namespace Intersect.Client.Entities
 
         public Spell[] Spells { get; set; } = new Spell[Options.MaxPlayerSkills];
 
+        public Skill[] Skills = new Skill[Options.MaxSkillSlots];
+
         IReadOnlyList<Guid> IEntity.Spells => Spells.Select(x => x.Id).ToList();
 
         public int[] Stat { get; set; } = new int[(int)Enums.Stat.StatCount];
@@ -239,6 +242,11 @@ namespace Intersect.Client.Entities
                 for (var i = 0; i < Options.MaxPlayerSkills; i++)
                 {
                     Spells[i] = new Spell();
+                }
+
+                for (var i = 0; i < Options.MaxSkillSlots; i++)
+                {
+                    Skills[i] = new Skill();
                 }
 
                 for (var i = 0; i < Options.EquipmentSlots.Count; i++)

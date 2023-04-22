@@ -270,6 +270,7 @@ namespace Intersect.Server.Entities
             changes |= SlotHelper.ValidateSlots(Spells, Options.MaxPlayerSkills);
             changes |= SlotHelper.ValidateSlots(Items, Options.MaxInvItems);
             changes |= SlotHelper.ValidateSlots(Bank, Options.Instance.PlayerOpts.InitialBankslots);
+            changes |= SlotHelper.ValidateSlots(Skills, Options.MaxSkillSlots);
 
             if (Hotbar.Count < Options.Instance.PlayerOpts.HotbarSlotCount)
             {
@@ -344,6 +345,15 @@ namespace Intersect.Server.Entities
                 if (spl.SpellId != Guid.Empty && SpellBase.Get(spl.SpellId) == null)
                 {
                     spl.Set(Spell.None);
+                }
+            }
+
+            //Upon Sign In remove any Skill that have been deleted 
+            foreach (var skl in Skills)
+            {
+                if (skl.SkillId != Guid.Empty && SkillBase.Get(skl.SkillId) == null)
+                {
+                    skl.Set(new Skill());
                 }
             }
 
@@ -5133,6 +5143,190 @@ namespace Intersect.Server.Entities
 
                     break;
             }
+        }
+
+        //Skills
+        public bool TryLearnSkill(Skill skill, bool sendUpdate = true)
+        {
+            if (skill == null || skill.SkillId == Guid.Empty)
+            {
+                return false;
+            }
+
+            if (HasSkill(skill.SkillId))
+            {
+                return false;
+            }
+
+            if (SkillBase.Get(skill.SkillId) == null)
+            {
+                return false;
+            }
+
+            for (var i = 0; i < Options.MaxSkillSlots; i++)
+            {
+                if (Skills[i].SkillId == Guid.Empty)
+                {
+                    Skills[i].Set(skill);
+                    if (sendUpdate)
+                    {
+                        PacketSender.SendPlayerSkillUpdate(this, i);
+                    }
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool HasSkill(Guid skillId)
+        {
+            for (var i = 0; i < Options.MaxSkillSlots; i++)
+            {
+                if (Skills[i].SkillId == skillId)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public int FindSkill(Guid skillId)
+        {
+            for (var i = 0; i < Options.MaxSkillSlots; i++)
+            {
+                if (Skills[i].SkillId == skillId)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        public void ForgetSkill(int skillSlot)
+        {
+            Skills[skillSlot].Set(Skill.None);
+            PacketSender.SendPlayerSkillUpdate(this, skillSlot);
+        }
+
+        public bool TryForgetSkill(Skill skill, bool sendUpdate = true)
+        {
+            Skill slot = null;
+            var slotIndex = -1;
+
+            for (var index = 0; index < Skills.Count; ++index)
+            {
+                var skillSlot = Skills[index];
+
+                // Avoid continue;
+                // ReSharper disable once InvertIf
+                if (skillSlot?.SkillId == skill.SkillId)
+                {
+                    slot = skillSlot;
+                    slotIndex = index;
+
+                    break;
+                }
+            }
+
+            if (slot == null)
+            {
+                return false;
+            }
+
+            var skillBase = SkillBase.Get(skill.SkillId);
+            if (skillBase == null)
+            {
+                return false;
+            }
+
+            slot.Set(Skill.None);
+            PacketSender.SendPlayerSkillUpdate(this, slotIndex);
+
+            return true;
+        }
+
+        public void SwapSkills(int skill1, int skill2, bool dontUpdateYet = false)
+        {
+            var tmpInstance = Skills[skill2].Clone();
+            Skills[skill2].Set(Skills[skill1]);
+            Skills[skill1].Set(tmpInstance);
+            if (!dontUpdateYet)
+            {
+                PacketSender.SendPlayerSkillUpdate(this, skill1);
+                PacketSender.SendPlayerSkillUpdate(this, skill2);
+            }
+        }
+
+        public void SortSkills()
+        {
+            for (var i = 0; i < Options.MaxSkillSlots - 1; i++)
+            {
+                for (var slot = 0; slot < Options.MaxSkillSlots - i - 1; slot++)
+                {
+                    if (Skills[slot] != null && Skills[slot + 1] != null)
+                    {
+                        var skill1 = SkillBase.Get(Skills[slot].SkillId);
+                        var skill2 = SkillBase.Get(Skills[slot + 1].SkillId);
+
+                        int skillSlotMovement = 0;
+
+                        //compare skills for positioning
+                        if (skill1 == null)
+                        {
+                            skillSlotMovement = (skill2 == null) ? 0 : -1;
+                        }
+                        else
+                        {
+                            //if it does not belong to my class we send it to the back (and hide in other method)
+                            if (skill1.Class != null && this.ClassId != skill1.ClassId)
+                            {
+                                skillSlotMovement = -1;
+                            }
+                            else
+                            {
+                                if (skill2 == null)
+                                {
+                                    skillSlotMovement = 1;
+                                }
+                                else
+                                {
+                                    //if the second skill does not belong to my class i ignore it
+                                    if (skill2.Class != null && this.ClassId != skill2.ClassId)
+                                    {
+                                        skillSlotMovement = 1;
+                                    }
+                                    else
+                                    {
+                                        //both skills have the same order value
+                                        if (skill1.Order == skill2.Order)
+                                        {
+                                            //if so then order by name
+                                            skillSlotMovement = skill1.Name.CompareTo(skill2.Name) * -1;
+                                        }
+                                        else
+                                        {
+                                            //lowest Order means first in line
+                                            skillSlotMovement = (skill1.Order < skill2.Order) ? 1 : -1;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (skillSlotMovement == -1) //-1 = move the slot down on the list
+                        {
+                            SwapSkills(slot, slot + 1, true);
+                        }
+
+                    }
+                }
+            }
+
+            PacketSender.SendPlayerSkills(this);
         }
 
         public bool TryGetEquipmentSlot(int equipmentSlot, out int inventorySlot)

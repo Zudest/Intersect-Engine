@@ -1,4 +1,4 @@
-﻿using Intersect.Server.Database.PlayerData.Api;
+using Intersect.Server.Database.PlayerData.Api;
 using Intersect.Server.Database.PlayerData.Players;
 using Intersect.Server.Entities;
 
@@ -29,6 +29,8 @@ namespace Intersect.Server.Database.PlayerData
         DbSet<Quest> Player_Quests { get; set; }
 
         DbSet<SpellSlot> Player_Spells { get; set; }
+
+        DbSet<SkillSlot> Player_Skills { get; set; }
 
         DbSet<PlayerVariable> Player_Variables { get; set; }
 

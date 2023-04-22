@@ -1260,6 +1260,24 @@ namespace Intersect.Client.Networking
             }
         }
 
+        //SkillsPacket
+        public void HandlePacket(IPacketSender packetSender, SkillsPacket packet)
+        {
+            foreach (var skl in packet.Slots)
+            {
+                HandlePacket(skl);
+            }
+        }
+
+        //SkillUpdatePacket
+        public void HandlePacket(IPacketSender packetSender, SkillUpdatePacket packet)
+        {
+            if (Globals.Me != null)
+            {
+                Globals.Me.Skills[packet.Slot].Load(packet.SkillId, packet.Level, packet.Experience, packet.Status);
+            }
+        }
+
         //EquipmentPacket
         public void HandlePacket(IPacketSender packetSender, EquipmentPacket packet)
         {

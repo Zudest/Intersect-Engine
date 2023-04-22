@@ -61,7 +61,7 @@ namespace Intersect.Server.Database.PlayerData
             user.LastIp = ip;
         }
 
-        public void TryLogout (bool softLogout = false)
+        public void TryLogout(bool softLogout = false)
         {
             //If we still have a character online (probably being held up in combat) then don't logout yet.
             foreach (var chr in Players)
@@ -786,7 +786,7 @@ namespace Intersect.Server.Database.PlayerData
                     switch (sortBy?.ToLower() ?? "")
                     {
                         case "email":
-                            compiledQuery= sortDirection == SortDirection.Ascending ? compiledQuery.OrderBy(u => u.Email.ToUpper()) : compiledQuery.OrderByDescending(u => u.Email.ToUpper());
+                            compiledQuery = sortDirection == SortDirection.Ascending ? compiledQuery.OrderBy(u => u.Email.ToUpper()) : compiledQuery.OrderByDescending(u => u.Email.ToUpper());
                             break;
                         case "registrationdate":
                             compiledQuery = sortDirection == SortDirection.Ascending ? compiledQuery.OrderBy(u => u.RegistrationDate) : compiledQuery.OrderByDescending(u => u.RegistrationDate);
@@ -837,6 +837,8 @@ namespace Intersect.Server.Database.PlayerData
                     .ThenInclude(c => c.Spells)
                     .Include(p => p.Players)
                     .ThenInclude(c => c.Bank)
+                    .Include(p => p.Players)
+                    .ThenInclude(c => c.Skills)
                     .Include(p => p.Variables)
                     .FirstOrDefault()
             ) ??
@@ -863,6 +865,8 @@ namespace Intersect.Server.Database.PlayerData
                     .ThenInclude(c => c.Spells)
                     .Include(p => p.Players)
                     .ThenInclude(c => c.Bank)
+                    .Include(p => p.Players)
+                    .ThenInclude(c => c.Skills)
                     .Include(p => p.Variables)
                     .FirstOrDefault()
             ) ??
@@ -888,6 +892,8 @@ namespace Intersect.Server.Database.PlayerData
                     .ThenInclude(c => c.Spells)
                     .Include(p => p.Players)
                     .ThenInclude(c => c.Bank)
+                    .Include(p => p.Players)
+                    .ThenInclude(c => c.Skills)
                     .Include(p => p.Variables)
                     .FirstOrDefault()
             ) ??
@@ -913,6 +919,8 @@ namespace Intersect.Server.Database.PlayerData
                     .ThenInclude(c => c.Spells)
                     .Include(p => p.Players)
                     .ThenInclude(c => c.Bank)
+                    .Include(p => p.Players)
+                    .ThenInclude(c => c.Skills)
                     .Include(p => p.Variables)
                     .FirstOrDefault()
                 ) ?? throw new InvalidOperationException();
@@ -947,6 +955,8 @@ namespace Intersect.Server.Database.PlayerData
                     .ThenInclude(c => c.Spells)
                     .Include(p => p.Players)
                     .ThenInclude(c => c.Bank)
+                    .Include(p => p.Players)
+                    .ThenInclude(c => c.Skills)
                     .Include(p => p.Variables)
                     .FirstOrDefault()
                 ) ?? throw new InvalidOperationException();

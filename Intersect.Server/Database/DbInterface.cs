@@ -1845,6 +1845,7 @@ namespace Intersect.Server.Database
                     MigrateDbSet(context.Players, newPlayerContext.Players);
                     MigrateDbSet(context.Player_Friends, newPlayerContext.Player_Friends);
                     MigrateDbSet(context.Player_Spells, newPlayerContext.Player_Spells);
+                    MigrateDbSet(context.Player_Skills, newPlayerContext.Player_Skills);
                     MigrateDbSet(context.Player_Variables, newPlayerContext.Player_Variables);
                     MigrateDbSet(context.Player_Hotbar, newPlayerContext.Player_Hotbar);
                     MigrateDbSet(context.Player_Quests, newPlayerContext.Player_Quests);

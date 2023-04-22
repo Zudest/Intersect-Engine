@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -178,6 +178,7 @@ namespace Intersect.Server.Entities
                 player.Items = player.Items.OrderBy(inventorySlot => inventorySlot?.Slot).ToList();
                 player.Hotbar = player.Hotbar.OrderBy(hotbarSlot => hotbarSlot?.Slot).ToList();
                 player.Spells = player.Spells.OrderBy(spellSlot => spellSlot?.Slot).ToList();
+                player.Skills = player.Skills.OrderBy(skillSlot => skillSlot?.Slot).ToList();
             }
 
             return player;
@@ -394,6 +395,7 @@ namespace Intersect.Server.Entities
                     .Include(p => p.Variables)
                     .Include(p => p.Items)
                     .Include(p => p.Spells)
+                    .Include(p => p.Skills)
             ) ??
             throw new InvalidOperationException();
 
@@ -410,6 +412,7 @@ namespace Intersect.Server.Entities
                     .Include(p => p.Variables)
                     .Include(p => p.Items)
                     .Include(p => p.Spells)
+                    .Include(p => p.Skills)
             ) ??
             throw new InvalidOperationException();
 
@@ -422,6 +425,7 @@ namespace Intersect.Server.Entities
                     .Include(p => p.Variables)
                     .Include(p => p.Items)
                     .Include(p => p.Spells)
+                    .Include(p => p.Skills)
                     .FirstOrDefault()
             ) ??
             throw new InvalidOperationException();
@@ -436,6 +440,7 @@ namespace Intersect.Server.Entities
                     .Include(p => p.Variables)
                     .Include(p => p.Items)
                     .Include(p => p.Spells)
+                    .Include(p => p.Skills)
                     .FirstOrDefault()
             ) ??
             throw new InvalidOperationException();

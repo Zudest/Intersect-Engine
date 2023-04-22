@@ -63,6 +63,8 @@ namespace Intersect.Server.Database.PlayerData
 
         public DbSet<SpellSlot> Player_Spells { get; set; }
 
+        public DbSet<SkillSlot> Player_Skills { get; set; }
+
         public DbSet<PlayerVariable> Player_Variables { get; set; }
 
         public DbSet<Bag> Bags { get; set; }
@@ -113,6 +115,8 @@ namespace Intersect.Server.Database.PlayerData
             modelBuilder.Entity<Player>().HasMany(b => b.Spells).WithOne(p => p.Player);
 
             modelBuilder.Entity<Player>().HasMany(b => b.Items).WithOne(p => p.Player);
+
+            modelBuilder.Entity<Player>().HasMany(b => b.Skills).WithOne(p => p.Player);
 
             modelBuilder.Entity<Player>().HasMany(b => b.Variables).WithOne(p => p.Player);
             modelBuilder.Entity<PlayerVariable>().HasIndex(p => new {p.VariableId, CharacterId = p.PlayerId}).IsUnique();
@@ -213,6 +217,9 @@ namespace Intersect.Server.Database.PlayerData
                 Entry(itm).State = EntityState.Detached;
 
             foreach (var itm in player.Bank)
+                Entry(itm).State = EntityState.Detached;
+
+            foreach (var itm in player.Skills)
                 Entry(itm).State = EntityState.Detached;
         }
 

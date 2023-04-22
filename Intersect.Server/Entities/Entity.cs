@@ -148,6 +148,10 @@ namespace Intersect.Server.Entities
         [JsonIgnore]
         public virtual List<SpellSlot> Spells { get; set; } = new List<SpellSlot>();
 
+        //Skills
+        [JsonIgnore]
+        public virtual List<SkillSlot> Skills { get; set; } = new List<SkillSlot>();
+
         [JsonIgnore, Column(nameof(NameColor))]
         public string NameColorJson
         {

@@ -500,6 +500,7 @@ namespace Intersect.Server.Web.RestApi.Routes.V1
                 player.ClassId = change.ClassId;
                 player.RecalculateStatsAndPoints();
                 player.UnequipInvalidItems();
+                player.SortSkills();
                 if (player.Online)
                 {
                     PacketSender.SendEntityDataToProximity(player);
@@ -773,6 +774,31 @@ namespace Intersect.Server.Web.RestApi.Routes.V1
             }
 
             return player.Spells;
+        }
+
+        [Route("{lookupKey:LookupKey}/skills")]
+        [HttpGet]
+        public object SkillsList(LookupKey lookupKey)
+        {
+            if (lookupKey.IsInvalid)
+            {
+                return Request.CreateErrorResponse(
+                    HttpStatusCode.BadRequest, lookupKey.IsIdInvalid ? @"Invalid player id." : @"Invalid player name."
+                );
+            }
+
+            var (client, player) = Player.Fetch(lookupKey);
+            if (player == null)
+            {
+                return Request.CreateErrorResponse(
+                    HttpStatusCode.NotFound,
+                    lookupKey.HasId
+                        ? $@"No player with id '{lookupKey.Id}'."
+                        : $@"No player with name '{lookupKey.Name}'."
+                );
+            }
+
+            return player.Skills;
         }
 
         [Route("{lookupKey:LookupKey}/spells/teach")]

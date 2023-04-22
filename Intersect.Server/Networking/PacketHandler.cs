@@ -1515,6 +1515,17 @@ namespace Intersect.Server.Networking
                 }
             }
 
+            var skills = SkillBase.Lookup.Values;
+            foreach (SkillBase skill in skills)
+            {
+                if (skill != null)
+                {
+                    var skillInstance = new Skill(skill.Id);
+                    newChar.TryLearnSkill(skillInstance, false);
+                }
+            }
+            newChar.SortSkills();
+
             foreach (var item in classBase.Items)
             {
                 if (ItemBase.Get(item.Id) != null)
@@ -1743,6 +1754,30 @@ namespace Intersect.Server.Networking
             {
                 player.UseSpell(packet.Slot, null);
             }
+        }
+
+        //SwapSpellsPacket
+        public void HandlePacket(Client client, SwapSkillsPacket packet)
+        {
+            var player = client?.Entity;
+            if (player == null)
+            {
+                return;
+            }
+
+            player.SwapSkills(packet.Slot1, packet.Slot2);
+        }
+
+        //ForgetSpellPacket
+        public void HandlePacket(Client client, ForgetSkillPacket packet)
+        {
+            var player = client?.Entity;
+            if (player == null)
+            {
+                return;
+            }
+
+            player.ForgetSkill(packet.Slot);
         }
 
         //UnequipItemPacket

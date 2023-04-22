@@ -145,6 +145,16 @@ namespace Intersect.Client.Networking
             Network.SendPacket(new UseSpellPacket(slot, targetId));
         }
 
+        public static void SendSwapSkills(int skill1, int skill2)
+        {
+            Network.SendPacket(new SwapSkillsPacket(skill1, skill2));
+        }
+
+        public static void SendForgetSkill(int slot)
+        {
+            Network.SendPacket(new ForgetSkillPacket(slot));
+        }
+
         public static void SendUnequipItem(int slot)
         {
             Network.SendPacket(new UnequipItemPacket(slot));

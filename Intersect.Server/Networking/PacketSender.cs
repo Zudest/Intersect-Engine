@@ -353,6 +353,7 @@ namespace Intersect.Server.Networking
                 SendQuestsProgress(player);
                 SendItemCooldowns(player);
                 SendSpellCooldowns(player);
+                SendPlayerSkills(player);
             }
 
             switch (entity)
@@ -1178,6 +1179,34 @@ namespace Intersect.Server.Networking
             }
 
             player.SendPacket(new SpellUpdatePacket(slot, player.Spells[slot].SpellId));
+        }
+
+        //SkillsPacket
+        public static void SendPlayerSkills(Player player)
+        {
+            if (player == null)
+            {
+                return;
+            }
+
+            var skills = new SkillUpdatePacket[Options.MaxSkillSlots];
+            for (var i = 0; i < Options.MaxSkillSlots; i++)
+            {
+                skills[i] = new SkillUpdatePacket(i, player.Skills[i].SkillId, player.Skills[i].Level, player.Skills[i].Experience, player.Skills[i].Status);
+            }
+
+            player.SendPacket(new SkillsPacket(skills));
+        }
+
+        //SkillUpdatePacket
+        public static void SendPlayerSkillUpdate(Player player, int slot)
+        {
+            if (player == null)
+            {
+                return;
+            }
+
+            player.SendPacket(new SkillUpdatePacket(slot, player.Skills[slot].SkillId, player.Skills[slot].Level, player.Skills[slot].Experience, player.Skills[slot].Status));
         }
 
         //EquipmentPacket

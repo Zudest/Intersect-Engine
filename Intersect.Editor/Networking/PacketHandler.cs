@@ -583,6 +583,21 @@ namespace Intersect.Editor.Networking
 
                     break;
 
+                case GameObjectType.Skills:
+                    if (deleted)
+                    {
+                        var cft = SkillBase.Get(id);
+                        cft.Delete();
+                    }
+                    else
+                    {
+                        var cft = new SkillBase(id);
+                        cft.Load(json);
+                        SkillBase.Lookup.Set(id, cft);
+                    }
+
+                    break;
+
                 case GameObjectType.Map:
                     //Handled in a different packet
                     break;

@@ -565,6 +565,10 @@ namespace Intersect.Server.Database
                     break;
                 case GameObjectType.Time:
                     break;
+                case GameObjectType.Skills:
+                    SkillBase.Lookup.Clear();
+
+                    break;
                 case GameObjectType.GuildVariable:
                     GuildVariableBase.Lookup.Clear();
 
@@ -705,6 +709,13 @@ namespace Intersect.Server.Database
                             break;
                         case GameObjectType.Time:
                             break;
+                        case GameObjectType.Skills:
+                            foreach (var skill in context.Skills)
+                            {
+                                SkillBase.Lookup.Set(skill.Id, skill);
+                            }
+
+                            break;
                         case GameObjectType.GuildVariable:
                             foreach (var psw in context.GuildVariables)
                             {
@@ -807,6 +818,10 @@ namespace Intersect.Server.Database
 
                     break;
                 case GameObjectType.Time:
+                    break;
+                case GameObjectType.Skills:
+                    dbObj = new SkillBase(predefinedid);
+
                     break;
 
                 case GameObjectType.Quest:
@@ -940,6 +955,11 @@ namespace Intersect.Server.Database
 
                         case GameObjectType.Time:
                             break;
+                        case GameObjectType.Skills:
+                            context.Skills.Add((SkillBase)dbObj);
+                            SkillBase.Lookup.Set(dbObj.Id, dbObj);
+
+                            break;
 
                         case GameObjectType.GuildVariable:
                             context.GuildVariables.Add((GuildVariableBase)dbObj);
@@ -1071,6 +1091,10 @@ namespace Intersect.Server.Database
                             break;
                         case GameObjectType.Time:
                             break;
+                        case GameObjectType.Skills:
+                            context.Skills.Remove((SkillBase)gameObject);
+
+                            break;
                         case GameObjectType.GuildVariable:
                             context.GuildVariables.Remove((GuildVariableBase)gameObject);
 
@@ -1194,6 +1218,10 @@ namespace Intersect.Server.Database
 
                             break;
                         case GameObjectType.Time:
+                            break;
+                        case GameObjectType.Skills:
+                            context.Skills.Update((SkillBase)gameObject);
+
                             break;
                         case GameObjectType.GuildVariable:
                             context.GuildVariables.Update((GuildVariableBase)gameObject);

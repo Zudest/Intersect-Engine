@@ -1689,6 +1689,13 @@ namespace Intersect.Server.Networking
                     break;
                 case GameObjectType.Time:
                     break;
+                case GameObjectType.Skills:
+                    foreach (var obj in SkillBase.Lookup)
+                    {
+                        SendGameObject(client, obj.Value, false, false, packetList);
+                    }
+
+                    break;
                 case GameObjectType.GuildVariable:
                     foreach (var obj in GuildVariableBase.Lookup)
                     {

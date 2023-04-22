@@ -5514,6 +5514,84 @@ Negative values for time to flow backwards.";
 
         }
 
+        public struct SkillsEditor
+        {
+
+            public static LocalizedString cancel = @"Cancel";
+
+            public static LocalizedString copy = @"Copy Skill";
+
+            public static LocalizedString skills = @"Skills";
+
+            public static LocalizedString delete = @"Delete Skill";
+
+            public static LocalizedString deleteskill = @"Delete";
+
+            public static LocalizedString deleteprompt =
+                @"Are you sure you want to delete this skill? This action cannot be reverted!";
+
+            public static LocalizedString deletetitle = @"Delete Skill";
+
+            public static LocalizedString duplicateskill = @"Duplicate";
+
+            public static LocalizedString folderlabel = @"Folder:";
+
+            public static LocalizedString foldertitle = @"Add Folder";
+
+            public static LocalizedString folderprompt = @"Enter a name for the folder you'd like to add:";
+
+            public static LocalizedString general = @"General";
+
+            public static LocalizedString New = @"New Skill";
+
+            public static LocalizedString paste = @"Paste Skill";
+
+            public static LocalizedString save = @"Save";
+
+            public static LocalizedString searchplaceholder = @"Search...";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString sortalphabetically = @"Order Alphabetically";
+
+            public static LocalizedString title = @"Skills Editor";
+
+            public static LocalizedString undo = @"Undo Changes";
+
+            public static LocalizedString undoprompt =
+                @"Are you sure you want to undo changes made to this skill? This action cannot be reverted!";
+
+            public static LocalizedString undotitle = @"Undo Changes";
+
+            public static LocalizedString name = @"Name:";
+
+            public static LocalizedString icon = @"Icon:";
+
+            public static LocalizedString levelupanimation = @"Level Up Anim.:";
+
+            public static LocalizedString levelmaxanimation = @"Max Level Anim.:";
+
+            public static LocalizedString skillclass = @"Class:";
+
+            public static LocalizedString skilldesc = @"Desc.:";
+
+            public static LocalizedString skillmaxlevel = @"Max Level:";
+
+            public static LocalizedString resetgrid = "Reset Grid";
+
+            public static LocalizedString experiencegrid = "Experience Data and Override Grid";
+
+            public static LocalizedString levelexp = @"Base Exp to Level:";
+
+            public static LocalizedString levelexpscale = @"Exp Increase (Per Level %):";
+
+            public static LocalizedString gridlevel = "Level";
+
+            public static LocalizedString gridtnl = "Exp TNL";
+
+            public static LocalizedString gridtotalexp = "Total Exp";
+
+        }
+
     }
 
 }

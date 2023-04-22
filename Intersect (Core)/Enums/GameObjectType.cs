@@ -58,7 +58,11 @@ namespace Intersect.Enums
         [GameObjectInfo(typeof(TilesetBase), "tilesets")]
         Tileset,
 
-        [GameObjectInfo(typeof(TimeBase), "")] Time,
+        [GameObjectInfo(typeof(TimeBase), "")] 
+        Time,
+
+        [GameObjectInfo(typeof(SkillBase), "skills")]
+        Skills,
 
         [GameObjectInfo(typeof(GuildVariableBase), "guild_variables")]
         GuildVariable,

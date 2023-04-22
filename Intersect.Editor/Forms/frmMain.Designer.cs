@@ -123,6 +123,7 @@ namespace Intersect.Editor.Forms
             this.menuStrip = new DarkUI.Controls.DarkMenuStrip();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.packageUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.skillsEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.menuStrip.SuspendLayout();
@@ -817,7 +818,8 @@ namespace Intersect.Editor.Forms
             this.shopEditorToolStripMenuItem,
             this.spellEditorToolStripMenuItem,
             this.variableEditorToolStripMenuItem,
-            this.timeEditorToolStripMenuItem});
+            this.timeEditorToolStripMenuItem,
+            this.skillsEditorToolStripMenuItem});
             this.contentEditorsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.contentEditorsToolStripMenuItem.Name = "contentEditorsToolStripMenuItem";
             this.contentEditorsToolStripMenuItem.Size = new System.Drawing.Size(101, 20);
@@ -1005,6 +1007,14 @@ namespace Intersect.Editor.Forms
             this.packageUpdateToolStripMenuItem.Text = "Package Update";
             this.packageUpdateToolStripMenuItem.Click += new System.EventHandler(this.packageUpdateToolStripMenuItem_Click);
             // 
+            // skillsEditorToolStripMenuItem
+            // 
+            this.skillsEditorToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.skillsEditorToolStripMenuItem.Name = "skillsEditorToolStripMenuItem";
+            this.skillsEditorToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.skillsEditorToolStripMenuItem.Text = "Skill Editor";
+            this.skillsEditorToolStripMenuItem.Click += new System.EventHandler(this.skillsEditorToolStripMenuItem_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1124,5 +1134,6 @@ namespace Intersect.Editor.Forms
         private ToolStripMenuItem packageUpdateToolStripMenuItem;
         private ToolStripMenuItem layersToolStripMenuItem;
         private ToolStripMenuItem hideEventsToolStripMenuItem;
+        private ToolStripMenuItem skillsEditorToolStripMenuItem;
     }
 }

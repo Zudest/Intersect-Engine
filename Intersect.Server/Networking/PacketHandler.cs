@@ -3706,6 +3706,11 @@ namespace Intersect.Server.Networking
                 case GameObjectType.Time:
                     break;
 
+                case GameObjectType.Skills:
+                    obj = DatabaseObject<SkillBase>.Lookup.Get(id);
+
+                    break;
+
                 case GameObjectType.GuildVariable:
                     obj = GuildVariableBase.Get(id);
 
@@ -3833,6 +3838,11 @@ namespace Intersect.Server.Networking
                     break;
 
                 case GameObjectType.Time:
+                    break;
+
+                case GameObjectType.Skills:
+                    obj = DatabaseObject<SkillBase>.Lookup.Get(id);
+
                     break;
 
                 case GameObjectType.GuildVariable:

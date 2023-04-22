@@ -1,4 +1,4 @@
-﻿namespace Intersect.Config
+namespace Intersect.Config
 {
     /// <summary>
     /// Contains configurable options pertaining to the way Players are handled by the engine.
@@ -78,6 +78,11 @@
         /// Number of spell slots a player has.
         /// </summary>
         public int MaxSpells { get; set; } = 35;
+
+        /// <summary>
+        /// Number of skill slots a player has.
+        /// </summary>
+        public int MaxSkills = 25;
 
         /// <summary>
         /// The highest value a single stat can be for a player.

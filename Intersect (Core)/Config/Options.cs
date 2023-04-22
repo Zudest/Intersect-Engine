@@ -108,7 +108,15 @@ namespace Intersect
 
         public static int MaxInvItems => Instance.PlayerOpts.MaxInventory;
 
-        public static int MaxPlayerSkills => Instance.PlayerOpts.MaxSpells;
+        /// <summary>
+        /// Reference for MaxSpells. For max number of skills use MaxSkillSlots
+        /// </summary>
+        public static int MaxPlayerSkills => Instance.PlayerOpts.MaxSpells; //Spells actually, not skills
+
+        /// <summary>
+        /// Reference for MaxSkills. For max number of spells use MaxPlayerSkills
+        /// </summary>
+        public static int MaxSkillSlots => Instance.PlayerOpts.MaxSkills; //Max Skills
 
         public static int MaxCharacters => Instance.PlayerOpts.MaxCharacters;
 

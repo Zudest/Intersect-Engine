@@ -469,6 +469,58 @@ namespace Intersect.Server.Entities.Events
             callStack.Push(tmpStack);
         }
 
+        //Change Skills Command
+        private static void ProcessCommand(
+            ChangeSkillsCommand command,
+            Player player,
+            Event instance,
+            CommandInstance stackInfo,
+            Stack<CommandInstance> callStack
+        )
+        {
+            //0 is add, 1 is remove
+            var success = false;
+            if (command.Add) //Try to add a skill
+            {
+                var skillInstance = new Skill(command.SkillId);
+                success = player.TryLearnSkill(skillInstance);
+            }
+            else
+            {
+                if (player.FindSkill(command.SkillId) > -1 && command.SkillId != Guid.Empty)
+                {
+                    player.ForgetSkill(player.FindSkill(command.SkillId));
+
+                    success = true;
+                }
+            }
+
+            if (success)
+            {
+                player.SortSkills();
+            }
+
+
+            List<EventCommand> newCommandList = null;
+            if (success && stackInfo.Page.CommandLists.ContainsKey(command.BranchIds[0]))
+            {
+                newCommandList = stackInfo.Page.CommandLists[command.BranchIds[0]];
+            }
+
+            if (!success && stackInfo.Page.CommandLists.ContainsKey(command.BranchIds[1]))
+            {
+                newCommandList = stackInfo.Page.CommandLists[command.BranchIds[1]];
+            }
+
+            var tmpStack = new CommandInstance(stackInfo.Page)
+            {
+                CommandList = newCommandList,
+                CommandIndex = 0,
+            };
+
+            callStack.Push(tmpStack);
+        }
+
         //Change Items Command
         private static void ProcessCommand(
             ChangeItemsCommand command,
@@ -1205,6 +1257,7 @@ namespace Intersect.Server.Entities.Events
                 player.ClassId = command.ClassId;
                 player.RecalculateStatsAndPoints();
                 player.UnequipInvalidItems();
+                player.SortSkills();
             }
 
             PacketSender.SendEntityDataToProximity(player);
@@ -1575,6 +1628,10 @@ namespace Intersect.Server.Entities.Events
                             break;
                         case EventCommandType.ChangeSpells:
                             branchIds.AddRange(((ChangeSpellsCommand) command).BranchIds);
+
+                            break;
+                        case EventCommandType.ChangeSkills:
+                            branchIds.AddRange(((ChangeSkillsCommand)command).BranchIds);
 
                             break;
                         case EventCommandType.ChangeItems:

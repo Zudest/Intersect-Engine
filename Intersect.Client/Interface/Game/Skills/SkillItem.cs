@@ -105,7 +105,7 @@ namespace Intersect.Client.Interface.Game.Skills
             {
                 if (skill != null)
                 {
-                    var skillTex = Globals.ContentManager.GetTexture(Framework.Content.TextureType.Spell, skill.Icon); //TextureType.Spell or TextureType.Skill?? //ZUDEST
+                    var skillTex = Globals.ContentManager.GetTexture(Framework.Content.TextureType.Spell, skill.Icon); //TextureType.Spell or TextureType.Skill??
                     if (skillTex != null)
                     {
                         Pnl.Texture = skillTex;

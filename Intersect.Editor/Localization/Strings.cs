@@ -1785,6 +1785,27 @@ Tick timer saved in server config.json.";
 
         }
 
+        public struct EventChangeSkills
+        {
+
+            public static LocalizedString action = @"Action: ";
+
+            public static Dictionary<int, LocalizedString> actions = new Dictionary<int, LocalizedString>
+            {
+                {0, @"Add"},
+                {1, @"Remove"}
+            };
+
+            public static LocalizedString cancel = @"Cancel";
+
+            public static LocalizedString okay = @"Ok";
+
+            public static LocalizedString skill = @"Skill: ";
+
+            public static LocalizedString title = @"Change Player Skills";
+
+        }
+
         public partial struct EventChangeSprite
         {
 
@@ -2129,6 +2150,19 @@ Tick timer saved in server config.json.";
 
             public static LocalizedString spawnonplayer = @"On Player [X Offset: {00} Y Offset: {01} Dir: {02}]";
 
+            public static LocalizedString changeskills = @"Change Player Skills [{00}]";
+
+            public static LocalizedString skillfailed =
+                @"Skill Not Taught/Moved (Already Knew/Skill list full/Didn't Know)";
+
+            public static LocalizedString skillsucceeded = @"Skill Taught/Removed Successfully";
+
+            public static LocalizedString endskill = @"End Skill Change";
+
+            public static LocalizedString teachskill = @"Teach: Skill {00}";
+
+            public static LocalizedString forgetskill = @"Remove: Skill {00}";
+
             public static LocalizedString spellfailed =
                 @"Spell Not Taught/Moved (Already Knew/Spellbook full/Didn't Know)";
 
@@ -2303,6 +2337,8 @@ Tick timer saved in server config.json.";
                 {"openguildbank", @"Open Guild Bank"},
                 {"setguildbankslots", @"Set Guild Bank Slots Count"},
                 {"resetstatallocations", @"Reset Stat Point Allocations"},
+                {"newcommands", @"New Commands"},
+                {"changeskills", @"Change Skills"},
             };
 
         }

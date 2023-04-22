@@ -84,7 +84,7 @@ namespace Intersect.Client.Interface.Game
             mDescWindow.LoadJsonUi(GameContentManager.UI.InGame, Graphics.Renderer.GetResolutionString());
             skillDescText.IsHidden = true;
             skillDescText.IsHidden = true;
-            icon.Texture = Globals.ContentManager.GetTexture(Framework.Content.TextureType.Spell, skill.Icon); //TextureType.Spell or TextureType.Skill?? //ZUDEST
+            icon.Texture = Globals.ContentManager.GetTexture(Framework.Content.TextureType.Spell, skill.Icon); //TextureType.Spell or TextureType.Skill??
             if (centerHorizontally)
             {
                 mDescWindow.MoveTo(x - mDescWindow.Width / 2, y + mDescWindow.Padding.Top);

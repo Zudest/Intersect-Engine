@@ -15,8 +15,6 @@ using Intersect.GameObjects.Events;
 using Intersect.Models;
 using Intersect.Utilities;
 
-//<ZUDEST>
-
 namespace Intersect.Editor.Forms.Editors
 {
 

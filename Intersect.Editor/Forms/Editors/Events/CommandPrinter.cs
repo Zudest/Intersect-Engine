@@ -302,6 +302,72 @@ namespace Intersect.Editor.Forms.Editors.Events
                             mCommandProperties.Add(clp);
 
                             break;
+                        case EventCommandType.ChangeSkills:
+                            var skl = (ChangeSkillsCommand)commandList[i];
+                            lstEventCommands.Items.Add(
+                                indent +
+                                Strings.EventCommandList.linestart +
+                                GetCommandText((dynamic)commandList[i], map)
+                            );
+
+                            clp = new CommandListProperties
+                            {
+                                Editable = true,
+                                MyIndex = i,
+                                MyList = commandList,
+                                Cmd = commandList[i],
+                                Type = commandList[i].Type
+                            };
+
+                            mCommandProperties.Add(clp);
+
+                            //When the skill was successfully taught:
+                            lstEventCommands.Items.Add(indent + "      : " + Strings.EventCommandList.skillsucceeded);
+                            clp = new CommandListProperties
+                            {
+                                Editable = false,
+                                MyIndex = i,
+                                MyList = commandList,
+                                Type = commandList[i].Type,
+                                Cmd = commandList[i]
+                            };
+
+                            mCommandProperties.Add(clp);
+                            PrintCommandList(
+                                page, page.CommandLists[skl.BranchIds[0]], indent + "          ", lstEventCommands,
+                                mCommandProperties, map
+                            );
+
+                            //When the skill failed to be taught:
+                            lstEventCommands.Items.Add(indent + "      : " + Strings.EventCommandList.skillfailed);
+                            clp = new CommandListProperties
+                            {
+                                Editable = false,
+                                MyIndex = i,
+                                MyList = commandList,
+                                Type = commandList[i].Type,
+                                Cmd = commandList[i]
+                            };
+
+                            mCommandProperties.Add(clp);
+                            PrintCommandList(
+                                page, page.CommandLists[skl.BranchIds[1]], indent + "          ", lstEventCommands,
+                                mCommandProperties, map
+                            );
+
+                            lstEventCommands.Items.Add(indent + "      : " + Strings.EventCommandList.endskill);
+                            clp = new CommandListProperties
+                            {
+                                Editable = false,
+                                MyIndex = i,
+                                MyList = commandList,
+                                Type = commandList[i].Type,
+                                Cmd = commandList[i]
+                            };
+
+                            mCommandProperties.Add(clp);
+
+                            break;
                         case EventCommandType.ChangeItems:
                             var itm = (ChangeItemsCommand) commandList[i];
                             lstEventCommands.Items.Add(
@@ -839,6 +905,20 @@ namespace Intersect.Editor.Forms.Editors.Events
 
             return Strings.EventCommandList.changespells.ToString(
                 Strings.EventCommandList.forget.ToString(SpellBase.GetName(command.SpellId))
+            );
+        }
+
+        private static string GetCommandText(ChangeSkillsCommand command, MapInstance map)
+        {
+            if (command.Add)
+            {
+                return Strings.EventCommandList.changeskills.ToString(
+                    Strings.EventCommandList.teachskill.ToString(SkillBase.GetName(command.SkillId))
+                );
+            }
+
+            return Strings.EventCommandList.changeskills.ToString(
+                Strings.EventCommandList.forgetskill.ToString(SkillBase.GetName(command.SkillId))
             );
         }
 

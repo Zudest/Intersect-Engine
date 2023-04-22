@@ -236,6 +236,9 @@ namespace Intersect.GameObjects.Events
 
         //Reset Stats
         ResetStatPointAllocations,
+
+        //Skills
+        ChangeSkills,
     }
 
 }

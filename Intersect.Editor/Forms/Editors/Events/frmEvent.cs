@@ -592,6 +592,10 @@ namespace Intersect.Editor.Forms.Editors.Events
                     tmpCommand = new ChangeSpellsCommand(CurrentPage.CommandLists);
 
                     break;
+                case EventCommandType.ChangeSkills:
+                    tmpCommand = new ChangeSkillsCommand(CurrentPage.CommandLists);
+
+                    break;
                 case EventCommandType.ChangeItems:
                     tmpCommand = new ChangeItemsCommand(CurrentPage.CommandLists);
 
@@ -1203,6 +1207,10 @@ namespace Intersect.Editor.Forms.Editors.Events
                     cmdWindow = new EventCommandChangeSpells((ChangeSpellsCommand) command, CurrentPage, this);
 
                     break;
+                case EventCommandType.ChangeSkills:
+                    cmdWindow = new EventCommandChangeSkills((ChangeSkillsCommand)command, CurrentPage, this);
+
+                    break;
                 case EventCommandType.ChangeItems:
                     cmdWindow = new EventCommandChangeItems((ChangeItemsCommand) command, CurrentPage, this);
 
@@ -1471,6 +1479,10 @@ namespace Intersect.Editor.Forms.Editors.Events
                     break;
                 case EventCommandType.ChangeSpells:
                     branchesToRemove.AddRange(((ChangeSpellsCommand) cmd).BranchIds);
+
+                    break;
+                case EventCommandType.ChangeSkills:
+                    branchesToRemove.AddRange(((ChangeSkillsCommand)cmd).BranchIds);
 
                     break;
                 case EventCommandType.StartQuest:

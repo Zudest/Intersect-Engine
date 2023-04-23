@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Windows.Forms;
 using DarkUI.Controls;
 
@@ -154,6 +154,15 @@ namespace Intersect.Editor.Forms.Editors.Events
             treeNode62,
             treeNode63,
             treeNode64});
+            System.Windows.Forms.TreeNode treeNode66 = new System.Windows.Forms.TreeNode("Change Skills");
+            System.Windows.Forms.TreeNode treeNode67 = new System.Windows.Forms.TreeNode("Skill Level Up");
+            System.Windows.Forms.TreeNode treeNode68 = new System.Windows.Forms.TreeNode("Give Skill Experience");
+            System.Windows.Forms.TreeNode treeNode69 = new System.Windows.Forms.TreeNode("Change Skill Level");
+            System.Windows.Forms.TreeNode treeNode70 = new System.Windows.Forms.TreeNode("Skills", new System.Windows.Forms.TreeNode[] {
+            treeNode66,
+            treeNode67,
+            treeNode68,
+            treeNode69});
             this.lblName = new System.Windows.Forms.Label();
             this.txtEventname = new DarkUI.Controls.DarkTextBox();
             this.grpEntityOptions = new DarkUI.Controls.DarkGroupBox();
@@ -1039,6 +1048,20 @@ namespace Intersect.Editor.Forms.Editors.Events
             treeNode64.Text = "Set Guild Bank Slots Count";
             treeNode65.Name = "guilds";
             treeNode65.Text = "Guilds";
+            treeNode66.Name = "changeskills";
+            treeNode66.Tag = "58";
+            treeNode66.Text = "Change Skills";
+            treeNode67.Name = "skilllevelup";
+            treeNode67.Tag = "59";
+            treeNode67.Text = "Skill Level Up";
+            treeNode68.Name = "giveskillexperience";
+            treeNode68.Tag = "60";
+            treeNode68.Text = "Give Skill Experience";
+            treeNode69.Name = "changeskilllevel";
+            treeNode69.Tag = "61";
+            treeNode69.Text = "Change Skill Level";
+            treeNode70.Name = "newcommands";
+            treeNode70.Text = "Skills";
             this.lstCommands.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode5,
             treeNode13,
@@ -1048,7 +1071,8 @@ namespace Intersect.Editor.Forms.Editors.Events
             treeNode54,
             treeNode56,
             treeNode60,
-            treeNode65});
+            treeNode65,
+            treeNode70});
             this.lstCommands.Size = new System.Drawing.Size(445, 465);
             this.lstCommands.TabIndex = 2;
             this.lstCommands.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.lstCommands_NodeMouseDoubleClick);

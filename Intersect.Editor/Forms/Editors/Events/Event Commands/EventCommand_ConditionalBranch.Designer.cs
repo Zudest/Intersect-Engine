@@ -155,14 +155,14 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
             this.rdoManual = new DarkUI.Controls.DarkRadioButton();
             this.cmbItem = new DarkUI.Controls.DarkComboBox();
             this.lblItem = new System.Windows.Forms.Label();
-            this.grpSkillLevel = new DarkUI.Controls.DarkGroupBox();
-            this.chkSkillIgnore = new DarkUI.Controls.DarkCheckBox();
-            this.nudSkillValue = new DarkUI.Controls.DarkNumericUpDown();
-            this.cmbSkill = new DarkUI.Controls.DarkComboBox();
-            this.lblSkillLevel = new System.Windows.Forms.Label();
-            this.lblSkillValue = new System.Windows.Forms.Label();
-            this.cmbSkillComparator = new DarkUI.Controls.DarkComboBox();
             this.lblSkillComparator = new System.Windows.Forms.Label();
+            this.cmbSkillComparator = new DarkUI.Controls.DarkComboBox();
+            this.lblSkillValue = new System.Windows.Forms.Label();
+            this.lblSkillLevel = new System.Windows.Forms.Label();
+            this.cmbSkill = new DarkUI.Controls.DarkComboBox();
+            this.nudSkillValue = new DarkUI.Controls.DarkNumericUpDown();
+            this.chkSkillIgnore = new DarkUI.Controls.DarkCheckBox();
+            this.grpSkillLevel = new DarkUI.Controls.DarkGroupBox();
             this.grpConditional.SuspendLayout();
             this.grpVariable.SuspendLayout();
             this.grpSelectVariable.SuspendLayout();
@@ -192,8 +192,8 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
             this.grpManualAmount.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudItemAmount)).BeginInit();
             this.grpAmountType.SuspendLayout();
-            this.grpSkillLevel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudSkillValue)).BeginInit();
+            this.grpSkillLevel.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpConditional
@@ -969,6 +969,7 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
             "Item Equipped Is...",
             "Has X free Inventory slots...",
             "In Guild With At Least Rank...",
+            "Map Zone Type is...",
             "Check Equipped Slot...",
             "Skill level is..."});
             this.cmbConditionType.Location = new System.Drawing.Point(88, 13);
@@ -2022,89 +2023,14 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
             this.lblItem.TabIndex = 2;
             this.lblItem.Text = "Item:";
             // 
-            // grpSkillLevel
+            // lblSkillComparator
             // 
-            this.grpSkillLevel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.grpSkillLevel.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.grpSkillLevel.Controls.Add(this.chkSkillIgnore);
-            this.grpSkillLevel.Controls.Add(this.nudSkillValue);
-            this.grpSkillLevel.Controls.Add(this.cmbSkill);
-            this.grpSkillLevel.Controls.Add(this.lblSkillLevel);
-            this.grpSkillLevel.Controls.Add(this.lblSkillValue);
-            this.grpSkillLevel.Controls.Add(this.cmbSkillComparator);
-            this.grpSkillLevel.Controls.Add(this.lblSkillComparator);
-            this.grpSkillLevel.ForeColor = System.Drawing.Color.Gainsboro;
-            this.grpSkillLevel.Location = new System.Drawing.Point(1, 8);
-            this.grpSkillLevel.Name = "grpSkillLevel";
-            this.grpSkillLevel.Size = new System.Drawing.Size(262, 140);
-            this.grpSkillLevel.TabIndex = 54;
-            this.grpSkillLevel.TabStop = false;
-            this.grpSkillLevel.Text = "Skill Level is...";
-            // 
-            // chkSkillIgnore
-            // 
-            this.chkSkillIgnore.Location = new System.Drawing.Point(13, 115);
-            this.chkSkillIgnore.Name = "chkSkillIgnore";
-            this.chkSkillIgnore.Size = new System.Drawing.Size(211, 17);
-            this.chkSkillIgnore.TabIndex = 32;
-            this.chkSkillIgnore.Text = "Ignore class exclusivity restriction";
-            // 
-            // nudSkillValue
-            // 
-            this.nudSkillValue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
-            this.nudSkillValue.ForeColor = System.Drawing.Color.Gainsboro;
-            this.nudSkillValue.Location = new System.Drawing.Point(79, 87);
-            this.nudSkillValue.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.nudSkillValue.Name = "nudSkillValue";
-            this.nudSkillValue.Size = new System.Drawing.Size(178, 20);
-            this.nudSkillValue.TabIndex = 8;
-            this.nudSkillValue.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            // 
-            // cmbSkill
-            // 
-            this.cmbSkill.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
-            this.cmbSkill.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.cmbSkill.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.cmbSkill.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
-            this.cmbSkill.DrawDropdownHoverOutline = false;
-            this.cmbSkill.DrawFocusRectangle = false;
-            this.cmbSkill.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbSkill.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSkill.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmbSkill.ForeColor = System.Drawing.Color.Gainsboro;
-            this.cmbSkill.FormattingEnabled = true;
-            this.cmbSkill.Location = new System.Drawing.Point(79, 23);
-            this.cmbSkill.Name = "cmbSkill";
-            this.cmbSkill.Size = new System.Drawing.Size(177, 21);
-            this.cmbSkill.TabIndex = 7;
-            this.cmbSkill.Text = "Level";
-            this.cmbSkill.TextPadding = new System.Windows.Forms.Padding(2);
-            // 
-            // lblSkillLevel
-            // 
-            this.lblSkillLevel.AutoSize = true;
-            this.lblSkillLevel.Location = new System.Drawing.Point(7, 25);
-            this.lblSkillLevel.Name = "lblSkillLevel";
-            this.lblSkillLevel.Size = new System.Drawing.Size(29, 13);
-            this.lblSkillLevel.TabIndex = 6;
-            this.lblSkillLevel.Text = "Skill:";
-            // 
-            // lblSkillValue
-            // 
-            this.lblSkillValue.AutoSize = true;
-            this.lblSkillValue.Location = new System.Drawing.Point(10, 89);
-            this.lblSkillValue.Name = "lblSkillValue";
-            this.lblSkillValue.Size = new System.Drawing.Size(37, 13);
-            this.lblSkillValue.TabIndex = 4;
-            this.lblSkillValue.Text = "Value:";
+            this.lblSkillComparator.AutoSize = true;
+            this.lblSkillComparator.Location = new System.Drawing.Point(7, 55);
+            this.lblSkillComparator.Name = "lblSkillComparator";
+            this.lblSkillComparator.Size = new System.Drawing.Size(64, 13);
+            this.lblSkillComparator.TabIndex = 2;
+            this.lblSkillComparator.Text = "Comparator:";
             // 
             // cmbSkillComparator
             // 
@@ -2126,14 +2052,89 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
             this.cmbSkillComparator.Text = null;
             this.cmbSkillComparator.TextPadding = new System.Windows.Forms.Padding(2);
             // 
-            // lblSkillComparator
+            // lblSkillValue
             // 
-            this.lblSkillComparator.AutoSize = true;
-            this.lblSkillComparator.Location = new System.Drawing.Point(7, 55);
-            this.lblSkillComparator.Name = "lblSkillComparator";
-            this.lblSkillComparator.Size = new System.Drawing.Size(64, 13);
-            this.lblSkillComparator.TabIndex = 2;
-            this.lblSkillComparator.Text = "Comparator:";
+            this.lblSkillValue.AutoSize = true;
+            this.lblSkillValue.Location = new System.Drawing.Point(10, 89);
+            this.lblSkillValue.Name = "lblSkillValue";
+            this.lblSkillValue.Size = new System.Drawing.Size(37, 13);
+            this.lblSkillValue.TabIndex = 4;
+            this.lblSkillValue.Text = "Value:";
+            // 
+            // lblSkillLevel
+            // 
+            this.lblSkillLevel.AutoSize = true;
+            this.lblSkillLevel.Location = new System.Drawing.Point(7, 25);
+            this.lblSkillLevel.Name = "lblSkillLevel";
+            this.lblSkillLevel.Size = new System.Drawing.Size(29, 13);
+            this.lblSkillLevel.TabIndex = 6;
+            this.lblSkillLevel.Text = "Skill:";
+            // 
+            // cmbSkill
+            // 
+            this.cmbSkill.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
+            this.cmbSkill.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.cmbSkill.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.cmbSkill.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+            this.cmbSkill.DrawDropdownHoverOutline = false;
+            this.cmbSkill.DrawFocusRectangle = false;
+            this.cmbSkill.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbSkill.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSkill.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbSkill.ForeColor = System.Drawing.Color.Gainsboro;
+            this.cmbSkill.FormattingEnabled = true;
+            this.cmbSkill.Location = new System.Drawing.Point(79, 23);
+            this.cmbSkill.Name = "cmbSkill";
+            this.cmbSkill.Size = new System.Drawing.Size(177, 21);
+            this.cmbSkill.TabIndex = 7;
+            this.cmbSkill.Text = "Level";
+            this.cmbSkill.TextPadding = new System.Windows.Forms.Padding(2);
+            // 
+            // nudSkillValue
+            // 
+            this.nudSkillValue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
+            this.nudSkillValue.ForeColor = System.Drawing.Color.Gainsboro;
+            this.nudSkillValue.Location = new System.Drawing.Point(79, 87);
+            this.nudSkillValue.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nudSkillValue.Name = "nudSkillValue";
+            this.nudSkillValue.Size = new System.Drawing.Size(178, 20);
+            this.nudSkillValue.TabIndex = 8;
+            this.nudSkillValue.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            // 
+            // chkSkillIgnore
+            // 
+            this.chkSkillIgnore.Location = new System.Drawing.Point(13, 115);
+            this.chkSkillIgnore.Name = "chkSkillIgnore";
+            this.chkSkillIgnore.Size = new System.Drawing.Size(211, 17);
+            this.chkSkillIgnore.TabIndex = 32;
+            this.chkSkillIgnore.Text = "Ignore class exclusivity restriction";
+            // 
+            // grpSkillLevel
+            // 
+            this.grpSkillLevel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.grpSkillLevel.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.grpSkillLevel.Controls.Add(this.chkSkillIgnore);
+            this.grpSkillLevel.Controls.Add(this.nudSkillValue);
+            this.grpSkillLevel.Controls.Add(this.cmbSkill);
+            this.grpSkillLevel.Controls.Add(this.lblSkillLevel);
+            this.grpSkillLevel.Controls.Add(this.lblSkillValue);
+            this.grpSkillLevel.Controls.Add(this.cmbSkillComparator);
+            this.grpSkillLevel.Controls.Add(this.lblSkillComparator);
+            this.grpSkillLevel.ForeColor = System.Drawing.Color.Gainsboro;
+            this.grpSkillLevel.Location = new System.Drawing.Point(0, 0);
+            this.grpSkillLevel.Name = "grpSkillLevel";
+            this.grpSkillLevel.Size = new System.Drawing.Size(262, 140);
+            this.grpSkillLevel.TabIndex = 59;
+            this.grpSkillLevel.TabStop = false;
+            this.grpSkillLevel.Text = "Skill Level is...";
             // 
             // EventCommandConditionalBranch
             // 
@@ -2197,9 +2198,9 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
             ((System.ComponentModel.ISupportInitialize)(this.nudItemAmount)).EndInit();
             this.grpAmountType.ResumeLayout(false);
             this.grpAmountType.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSkillValue)).EndInit();
             this.grpSkillLevel.ResumeLayout(false);
             this.grpSkillLevel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSkillValue)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -422,7 +422,10 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
                     break;
                 case ConditionTypes.SkillLevelIs:
                     Condition = new SkillLevelIsCondition();
-                    cmbSkillComparator.SelectedIndex = 0;
+                    if(cmbSkillComparator.Items.Count > 0)
+                    {
+                        cmbSkillComparator.SelectedIndex = 0;
+                    }
                     cmbSkill.SelectedIndex = 0;
                     nudSkillValue.Value = 0;
                     chkSkillIgnore.Checked = false;

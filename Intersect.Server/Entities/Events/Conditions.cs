@@ -515,6 +515,83 @@ namespace Intersect.Server.Entities.Events
             return player.Map?.ZoneType == condition.ZoneType;
         }
 
+        public static bool MeetsCondition(
+           SkillLevelIsCondition condition,
+           Player player,
+           Event eventInstance,
+           QuestBase questBase
+        )
+        {
+            if (!player.HasSkill(condition.SkillId))
+            {
+                return false;
+            }
+
+            //do we have a different class to the one on the skill?
+            var skillBase = SkillBase.Get(condition.SkillId);
+            if (skillBase.Class != null && player.ClassId != skillBase.ClassId && !(condition.IgnoreClassExclusivity))
+            {
+                //then the condition meets the class restriction, we are not supposed to continue
+                return false;
+            }
+
+            //we check with the player skill and return its level
+            int slot = player.GetSkillSlot(condition.SkillId);
+            var skillInstance = player.Skills[slot].Clone();
+
+            var lvlSkill = 0;
+
+            lvlSkill = skillInstance.Level;
+
+            switch (condition.Comparator)
+            {
+                case VariableComparator.Equal:
+                    if (lvlSkill == condition.Value)
+                    {
+                        return true;
+                    }
+
+                    break;
+                case VariableComparator.GreaterOrEqual:
+                    if (lvlSkill >= condition.Value)
+                    {
+                        return true;
+                    }
+
+                    break;
+                case VariableComparator.LesserOrEqual:
+                    if (lvlSkill <= condition.Value)
+                    {
+                        return true;
+                    }
+
+                    break;
+                case VariableComparator.Greater:
+                    if (lvlSkill > condition.Value)
+                    {
+                        return true;
+                    }
+
+                    break;
+                case VariableComparator.Less:
+                    if (lvlSkill < condition.Value)
+                    {
+                        return true;
+                    }
+
+                    break;
+                case VariableComparator.NotEqual:
+                    if (lvlSkill != condition.Value)
+                    {
+                        return true;
+                    }
+
+                    break;
+            }
+
+            return false;
+        }
+
         //Variable Comparison Processing
 
         public static bool CheckVariableComparison(

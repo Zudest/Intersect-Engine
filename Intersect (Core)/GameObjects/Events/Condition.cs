@@ -46,6 +46,8 @@ namespace Intersect.GameObjects.Events
 
         CheckEquipment,
 
+        SkillLevelIs,
+
     }
 
     public partial class Condition
@@ -298,6 +300,21 @@ namespace Intersect.GameObjects.Events
         /// Defines the map Zone Type to compare to.
         /// </summary>
         public MapZone ZoneType { get; set; }
+    }
+
+    public partial class SkillLevelIsCondition : Condition
+    {
+
+        public override ConditionTypes Type { get; } = ConditionTypes.SkillLevelIs;
+
+        public Guid SkillId { get; set; }
+
+        public VariableComparator Comparator { get; set; } = VariableComparator.Equal;
+
+        public int Value { get; set; }
+
+        public bool IgnoreClassExclusivity { get; set; }
+
     }
 
     public partial class VariableComparison

@@ -82,7 +82,7 @@ namespace Intersect.Config
         /// <summary>
         /// Number of skill slots a player has.
         /// </summary>
-        public int MaxSkills = 25;
+        public int MaxSkills = 20;
 
         /// <summary>
         /// The highest value a single stat can be for a player.

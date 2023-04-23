@@ -5261,6 +5261,31 @@ namespace Intersect.Server.Entities
             }
         }
 
+        public int GetSkillSlot(Guid SkillId)
+        {
+            Skill slot = null;
+            var slotIndex = -1;
+
+            for (var index = 0; index < Skills.Count; ++index)
+            {
+                var skillSlot = Skills[index];
+
+                if (skillSlot?.SkillId == SkillId)
+                {
+                    slot = skillSlot;
+                    slotIndex = index;
+                    break;
+                }
+            }
+
+            if (slot == null)
+            {
+                return -1;
+            }
+
+            return slotIndex;
+        }
+
         public void SortSkills()
         {
             for (var i = 0; i < Options.MaxSkillSlots - 1; i++)
@@ -5327,6 +5352,169 @@ namespace Intersect.Server.Entities
             }
 
             PacketSender.SendPlayerSkills(this);
+        }
+
+        public int GetSkillExpMultiplier(Skill skill)
+        {
+            var exp = 100;
+
+            //ZUDEST: Pending to build a skill exp multiplier
+
+            /*
+            for (var i = 0; i < Options.EquipmentSlots.Count; i++)
+            {
+                if (Equipment[i] > -1)
+                {
+                    if (Items[Equipment[i]].ItemId != Guid.Empty)
+                    {
+                        var item = ItemBase.Get(Items[Equipment[i]].ItemId);
+                        if (item != null)
+                        {
+                            if (item.Effect.Type == EffectType.EXP)
+                            {
+                                exp += item.Effect.Percentage;
+                            }
+                        }
+                    }
+                }
+            }
+            */
+
+            return exp;
+        }
+
+        private long GetSkillExpToNextLevel(Skill skill, int level)
+        {
+            var skillBase = SkillBase.Get(skill.SkillId);
+
+            if (skillBase == null)
+            {
+                return SkillBase.DEFAULT_BASE_EXPERIENCE;
+            }
+
+            if (level >= skillBase.MaxLevel)
+            {
+                return -1;
+            }
+
+            return skillBase.ExperienceToNextLevel(level);
+        }
+
+        public void GiveSkillExperience(Skill skill, long amount)
+        {
+            skill.Experience += (int)(amount * GetSkillExpMultiplier(skill) / 100);
+            if (skill.Experience < 0)
+            {
+                skill.Experience = 0;
+            }
+
+            if (!CheckSkillLevelUp(skill))
+            {
+                SendSkillExperiencePacket(skill);
+            }
+        }
+
+        public void TakeSkillExperience(Skill skill, long amount)
+        {
+            skill.Experience -= amount;
+            if (skill.Experience < 0)
+            {
+                skill.Experience = 0;
+            }
+            SendSkillExperiencePacket(skill);
+        }
+
+        private void SendSkillExperiencePacket(Skill skill)
+        {
+            int slot = GetSkillSlot(skill.SkillId);
+            this.Skills[slot].Level = skill.Level;
+            this.Skills[slot].Experience = skill.Experience;
+
+            PacketSender.SendPlayerSkillUpdate(this, slot);
+        }
+
+        private bool CheckSkillLevelUp(Skill skill)
+        {
+            var levelCount = 0;
+            while (skill.Experience >= GetSkillExpToNextLevel(skill, skill.Level + levelCount) &&
+                   GetSkillExpToNextLevel(skill, skill.Level + levelCount) > 0)
+            {
+                skill.Experience -= GetSkillExpToNextLevel(skill, skill.Level + levelCount);
+                levelCount++;
+            }
+
+            if (levelCount <= 0)
+            {
+                return false;
+            }
+
+            SkillLevelUp(skill, false, levelCount);
+
+            return true;
+        }
+
+        public void SetSkillLevel(Skill skill, int level, bool resetExperience = false)
+        {
+            var skillBase = SkillBase.Get(skill.SkillId);
+
+            if (skillBase == null)
+            {
+                return;
+            }
+
+            if (level < 1)
+            {
+                return;
+            }
+
+            skill.Level = Math.Min(skillBase.MaxLevel, level);
+            if (resetExperience)
+            {
+                skill.Experience = 0;
+            }
+            SendSkillExperiencePacket(skill);
+        }
+
+        public void SkillLevelUp(Skill skill, bool resetExperience = true, int levels = 1)
+        {
+            var skillBase = SkillBase.Get(skill.SkillId);
+
+            if (skillBase != null)
+            {
+                if (skill.Level < skillBase.MaxLevel)
+                {
+                    for (var i = 0; i < levels; i++)
+                    {
+                        SetSkillLevel(skill, skill.Level + 1, resetExperience);
+                    }
+                }
+
+                //Skill level animation
+                if (skillBase.LevelMaxAnimation != null && skill.Level == skillBase.MaxLevel)
+                {
+                    PacketSender.SendAnimationToProximity(
+                        skillBase.LevelMaxAnimation.Id, 1, base.Id, MapId, 0, 0, Dir, MapInstanceId
+                    ); //Target Type 1 will be global entity
+                }
+                else
+                {
+                    if (skillBase.LevelUpAnimation != null)
+                    {
+                        PacketSender.SendAnimationToProximity(
+                            skillBase.LevelUpAnimation.Id, 1, base.Id, MapId, 0, 0, Dir, MapInstanceId
+                        ); //Target Type 1 will be global entity
+                    }
+                }
+
+                //Send player message:
+                PacketSender.SendChatMsg(this, Strings.Player.skilllevelup.ToString(skillBase.Name, skill.Level), ChatMessageType.Experience, CustomColors.Combat.LevelUp, Name);
+                //PacketSender.SendActionMsg(this, Strings.Combat.levelup, CustomColors.Combat.LevelUp);
+
+                SendSkillExperiencePacket(skill);
+
+                //Search for level up activated events and run them
+                StartCommonEventsWithTrigger(CommonEventTrigger.SkillLevelUp, "", skillBase.Id.ToString()); 
+            }
         }
 
         public bool TryGetEquipmentSlot(int equipmentSlot, out int inventorySlot)
@@ -6583,6 +6771,11 @@ namespace Intersect.Server.Entities
                         }
 
                         if (trigger == CommonEventTrigger.ServerVariableChange && param != baseEvent.Pages[i].TriggerId.ToString())
+                        {
+                            continue;
+                        }
+
+                        if (trigger == CommonEventTrigger.SkillLevelUp && param != baseEvent.Pages[i].TriggerId.ToString())
                         {
                             continue;
                         }

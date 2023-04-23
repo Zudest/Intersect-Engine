@@ -363,6 +363,42 @@ namespace Intersect.Editor.Localization
             return EventConditionDesc.checkequippedslot.ToString(condition.Name);
         }
 
+        public static string GetEventConditionalDesc(SkillLevelIsCondition condition)
+        {
+            var pLvl = "";
+            switch (condition.Comparator)
+            {
+                case VariableComparator.Equal:
+                    pLvl = Strings.EventConditionDesc.equal.ToString(condition.Value);
+
+                    break;
+                case VariableComparator.GreaterOrEqual:
+                    pLvl = Strings.EventConditionDesc.greaterequal.ToString(condition.Value);
+
+                    break;
+                case VariableComparator.LesserOrEqual:
+                    pLvl = Strings.EventConditionDesc.lessthanequal.ToString(condition.Value);
+
+                    break;
+                case VariableComparator.Greater:
+                    pLvl = Strings.EventConditionDesc.greater.ToString(condition.Value);
+
+                    break;
+                case VariableComparator.Less:
+                    pLvl = Strings.EventConditionDesc.lessthan.ToString(condition.Value);
+
+                    break;
+                case VariableComparator.NotEqual:
+                    pLvl = Strings.EventConditionDesc.notequal.ToString(condition.Value);
+
+                    break;
+            }
+
+            var lvlorstat = Strings.EventConditionDesc.level;
+
+            return Strings.EventConditionDesc.levelorstat.ToString(lvlorstat, pLvl);
+        }
+
         public static string GetVariableComparisonString(VariableComparison comparison)
         {
             return "";
@@ -2163,6 +2199,12 @@ Tick timer saved in server config.json.";
 
             public static LocalizedString forgetskill = @"Remove: Skill {00}";
 
+            public static LocalizedString giveskillexp = @"Give Player {00} {01} Experience";
+
+            public static LocalizedString skilllevelup = @"Level Up Player {00} Skill";
+
+            public static LocalizedString setskilllevel = @"Set Player {01} Level To: {00}";
+
             public static LocalizedString spellfailed =
                 @"Spell Not Taught/Moved (Already Knew/Spellbook full/Didn't Know)";
 
@@ -2337,8 +2379,11 @@ Tick timer saved in server config.json.";
                 {"openguildbank", @"Open Guild Bank"},
                 {"setguildbankslots", @"Set Guild Bank Slots Count"},
                 {"resetstatallocations", @"Reset Stat Point Allocations"},
-                {"newcommands", @"New Commands"},
+                {"newcommands", @"Skills"},
                 {"changeskills", @"Change Skills"},
+                {"skilllevelup", @"Skill Level Up"},
+                {"giveskillexperience", @"Give Skill Experience"},
+                {"changeskilllevel", @"Change Skill Level"},
             };
 
         }
@@ -2426,6 +2471,7 @@ Tick timer saved in server config.json.";
                 {19, @"In Guild With At Least Rank..." },
                 {20, @"Map Zone Type is..." },
                 {21, @"Check Equipped Slot..." },
+                {22, @"Skill level is..." },
             };
 
             public static LocalizedString endrange = @"End Range:";
@@ -2467,6 +2513,12 @@ Tick timer saved in server config.json.";
             public static LocalizedString levelstatitem = @"Level or Stat:";
 
             public static LocalizedString levelstatvalue = @"Value:";
+
+            public static LocalizedString skilllevel = @"Skill Level is....";
+
+            public static LocalizedString skilllevellabel = @"Skill:";
+
+            public static LocalizedString skillignore = @"Ignore class exclusivity restriction";
 
             public static LocalizedString male = @"Male";
 
@@ -2784,6 +2836,7 @@ Tick timer saved in server config.json.";
                 {16, @"Inventory Changed"},
                 {17, @"Map Changed"},
                 {18, @"User Variable Changed"},
+                {19, @"Skill Level Up"},
             };
 
             public static LocalizedString conditions = @"Conditions";
@@ -5625,6 +5678,58 @@ Negative values for time to flow backwards.";
             public static LocalizedString gridtnl = "Exp TNL";
 
             public static LocalizedString gridtotalexp = "Total Exp";
+
+        }
+
+        public struct EventGiveSkillExperience
+        {
+
+            public static LocalizedString cancel = @"Cancel";
+
+            public static LocalizedString label = @"Give Skill Experience:";
+
+            public static LocalizedString okay = @"Ok";
+
+            public static LocalizedString title = @"Give Skill Experience";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString AmountType = @"Amount Type";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString Variable = @"Variable";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString Manual = @"Manual";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString PlayerVariable = @"Player Variable";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString ServerVariable = @"Global Variable";
+
+        }
+
+        public struct EventChangeSkillLevel
+        {
+
+            public static LocalizedString cancel = @"Cancel";
+
+            public static LocalizedString label = @"Set Level:";
+
+            public static LocalizedString okay = @"Ok";
+
+            public static LocalizedString title = @"Change Skill Level";
+
+        }
+
+        public struct EventSkillLevelUp
+        {
+
+            public static LocalizedString cancel = @"Cancel";
+
+            public static LocalizedString okay = @"Ok";
+
+            public static LocalizedString title = @"Skill Level Up";
 
         }
 

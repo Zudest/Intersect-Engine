@@ -255,6 +255,18 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
 
             chkBank.Text = Strings.EventConditional.CheckBank;
 
+            // Skill Level
+            grpSkillLevel.Text = Strings.EventConditional.skilllevel;
+            lblSkillValue.Text = Strings.EventConditional.levelstatvalue;
+            lblSkillComparator.Text = Strings.EventConditional.comparator;
+            lblSkillLevel.Text = Strings.EventConditional.skilllevellabel;
+            cmbSkillComparator.Items.Clear();
+            for (var i = 0; i < Strings.EventConditional.comparators.Count; i++)
+            {
+                cmbSkillComparator.Items.Add(Strings.EventConditional.comparators[i]);
+            }
+            chkSkillIgnore.Text = Strings.EventConditional.skillignore;
+
             //Check Equipped Slot
             grpCheckEquippedSlot.Text = Strings.EventConditional.CheckEquipment;
             lblCheckEquippedSlot.Text = Strings.EventConditional.EquipmentSlot;
@@ -408,6 +420,14 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
                     }
 
                     break;
+                case ConditionTypes.SkillLevelIs:
+                    Condition = new SkillLevelIsCondition();
+                    cmbSkillComparator.SelectedIndex = 0;
+                    cmbSkill.SelectedIndex = 0;
+                    nudSkillValue.Value = 0;
+                    chkSkillIgnore.Checked = false;
+
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -433,6 +453,7 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
             grpMapZoneType.Hide();
             grpNpc.Hide();
             grpCheckEquippedSlot.Hide();
+            grpSkillLevel.Hide();
             switch (type)
             {
                 case ConditionTypes.VariableIs:
@@ -572,6 +593,12 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
                     {
                         cmbCheckEquippedSlot.Items.Add(slot);
                     }
+
+                    break;
+                case ConditionTypes.SkillLevelIs:
+                    grpSkillLevel.Show();
+                    cmbSkill.Items.Clear();
+                    cmbSkill.Items.AddRange(SkillBase.Names);
 
                     break;
                 default:
@@ -1400,6 +1427,13 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
             cmbCheckEquippedSlot.SelectedIndex = Options.EquipmentSlots.IndexOf(condition.Name);
         }
 
+        private void SetupFormValues(SkillLevelIsCondition condition)
+        {
+            cmbSkillComparator.SelectedIndex = (int)condition.Comparator;
+            nudSkillValue.Value = condition.Value;
+            cmbSkill.SelectedIndex = SkillBase.ListIndex(condition.SkillId);
+            chkSkillIgnore.Checked = condition.IgnoreClassExclusivity;
+        }
 
         #endregion
 
@@ -1596,6 +1630,15 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
         private void SaveFormValues(CheckEquippedSlot condition)
         {
             condition.Name = Options.EquipmentSlots[cmbCheckEquippedSlot.SelectedIndex];
+        }
+
+        private void SaveFormValues(SkillLevelIsCondition condition)
+        {
+            condition.Comparator = (VariableComparator)cmbSkillComparator.SelectedIndex;
+            condition.Value = (int)nudSkillValue.Value;
+            condition.SkillId = SkillBase.IdFromList(cmbSkill.SelectedIndex);
+
+            condition.IgnoreClassExclusivity = chkStatIgnoreBuffs.Checked;
         }
         #endregion
 

@@ -1201,7 +1201,7 @@ namespace Intersect.Server.Networking
         //SkillUpdatePacket
         public static void SendPlayerSkillUpdate(Player player, int slot)
         {
-            if (player == null)
+            if (player == null || slot == -1)
             {
                 return;
             }

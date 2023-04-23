@@ -483,6 +483,50 @@ namespace Intersect.GameObjects.Events.Commands
 
     }
 
+    public class SkillLevelUpCommand : EventCommand
+    {
+
+        public override EventCommandType Type { get; } = EventCommandType.SkillLevelUp;
+
+        public Guid SkillId { get; set; }
+    }
+
+    public class GiveSkillExperienceCommand : EventCommand
+    {
+
+        public override EventCommandType Type { get; } = EventCommandType.GiveSkillExperience;
+
+        public Guid SkillId { get; set; }
+
+        public long Exp { get; set; }
+
+        /// <summary>
+        /// Defines whether this event command will use a variable for processing or not.
+        /// </summary>
+        public bool UseVariable { get; set; } = false;
+
+        /// <summary>
+        /// Defines whether the variable used is a Player or Global variable.
+        /// </summary>
+        public VariableType VariableType { get; set; } = VariableType.PlayerVariable;
+
+        /// <summary>
+        /// The Variable Id to use.
+        /// </summary>
+        public Guid VariableId { get; set; }
+
+    }
+
+    public class ChangeSkillLevelCommand : EventCommand
+    {
+        public override EventCommandType Type { get; } = EventCommandType.ChangeSkillLevel;
+
+        public Guid SkillId { get; set; }
+
+        public int Level { get; set; }
+
+    }
+
     public partial class ChangeItemsCommand : EventCommand
     {
 

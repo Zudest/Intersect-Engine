@@ -121,6 +121,13 @@ namespace Intersect.Client.Interface.Game.Skills
 
                     mTexLoaded = skill.Icon;
                     mCurrentSkillId = Globals.Me.Skills[mYindex].SkillId;
+
+                    if (mDescWindow != null)
+                    {
+                        mDescWindow.Dispose();
+                        mDescWindow = null;
+                        pnl_HoverEnter(null, null);
+                    }
                 }
                 else
                 {

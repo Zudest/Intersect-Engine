@@ -596,6 +596,18 @@ namespace Intersect.Editor.Forms.Editors.Events
                     tmpCommand = new ChangeSkillsCommand(CurrentPage.CommandLists);
 
                     break;
+                case EventCommandType.SkillLevelUp:
+                    tmpCommand = new SkillLevelUpCommand();
+
+                    break;
+                case EventCommandType.GiveSkillExperience:
+                    tmpCommand = new GiveSkillExperienceCommand();
+
+                    break;
+                case EventCommandType.ChangeSkillLevel:
+                    tmpCommand = new ChangeSkillLevelCommand();
+
+                    break;
                 case EventCommandType.ChangeItems:
                     tmpCommand = new ChangeItemsCommand(CurrentPage.CommandLists);
 
@@ -1209,6 +1221,18 @@ namespace Intersect.Editor.Forms.Editors.Events
                     break;
                 case EventCommandType.ChangeSkills:
                     cmdWindow = new EventCommandChangeSkills((ChangeSkillsCommand)command, CurrentPage, this);
+
+                    break;
+                case EventCommandType.SkillLevelUp:
+                    cmdWindow = new EventCommandSkillLevelUp((SkillLevelUpCommand)command, this);
+                    break;
+
+                case EventCommandType.GiveSkillExperience:
+                    cmdWindow = new EventCommandGiveSkillExperience((GiveSkillExperienceCommand)command, this);
+
+                    break;
+                case EventCommandType.ChangeSkillLevel:
+                    cmdWindow = new EventCommandChangeSkillLevel((ChangeSkillLevelCommand)command, this);
 
                     break;
                 case EventCommandType.ChangeItems:
@@ -1828,6 +1852,14 @@ namespace Intersect.Editor.Forms.Editors.Events
                     lblVariableTrigger.Show();
                     lblVariableTrigger.Text = Strings.EventEditor.VariableTrigger;
                 }
+                else if (cmbTrigger.SelectedIndex == (int)CommonEventTrigger.SkillLevelUp)
+                {
+                    //we use cmbVariable as a flex combo for skills too
+                    cmbVariable.Show();
+                    cmbVariable.Items.Add(Strings.General.None);
+                    cmbVariable.Items.AddRange(SkillBase.Names);
+                    cmbVariable.SelectedIndex = SkillBase.ListIndex(CurrentPage.TriggerId) + 1;
+                }
                 else if (cmbTrigger.SelectedIndex == (int)CommonEventTrigger.GuildVariableChange)
                 {
                     cmbVariable.Show();
@@ -1860,6 +1892,10 @@ namespace Intersect.Editor.Forms.Editors.Events
                 else if (cmbTrigger.SelectedIndex == (int)CommonEventTrigger.ServerVariableChange)
                 {
                     CurrentPage.TriggerId = ServerVariableBase.IdFromList(cmbVariable.SelectedIndex - 1);
+                }
+                else if (cmbTrigger.SelectedIndex == (int)CommonEventTrigger.SkillLevelUp)
+                {
+                    CurrentPage.TriggerId = SkillBase.IdFromList(cmbVariable.SelectedIndex - 1);
                 }
                 else if (cmbTrigger.SelectedIndex == (int)CommonEventTrigger.GuildVariableChange)
                 {

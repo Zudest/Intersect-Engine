@@ -521,6 +521,123 @@ namespace Intersect.Server.Entities.Events
             callStack.Push(tmpStack);
         }
 
+        //Skill Level Up Command
+        private static void ProcessCommand(
+            SkillLevelUpCommand command,
+            Player player,
+            Event instance,
+            CommandInstance stackInfo,
+            Stack<CommandInstance> callStack
+        )
+        {
+            if (player.FindSkill(command.SkillId) > -1 && command.SkillId != Guid.Empty)
+            {
+                //additional validations start here
+                bool validation = true;
+
+                //we check if the skill has a class requirement:
+                var skillBase = SkillBase.Get(command.SkillId);
+                if (skillBase != null)
+                {
+                    if (skillBase.Class != null && skillBase.ClassId != player.ClassId)
+                    {
+                        validation = false;
+                    }
+                }
+
+                if (validation)
+                {
+                    int slot = player.GetSkillSlot(command.SkillId);
+                    var skillInstance = player.Skills[slot].Clone();
+                    player.SkillLevelUp(skillInstance);
+                }
+            }
+        }
+
+        //Give Skill Experience Command
+        private static void ProcessCommand(
+            GiveSkillExperienceCommand command,
+            Player player,
+            Event instance,
+            CommandInstance stackInfo,
+            Stack<CommandInstance> callStack
+        )
+        {
+            //Check if we have the skill
+            if (player.FindSkill(command.SkillId) > -1 && command.SkillId != Guid.Empty)
+            {
+                var quantity = command.Exp;
+                if (command.UseVariable)
+                {
+                    switch (command.VariableType)
+                    {
+                        case VariableType.PlayerVariable:
+                            quantity = (int)player.GetVariableValue(command.VariableId).Integer;
+
+                            break;
+                        case VariableType.ServerVariable:
+                            quantity = (int)ServerVariableBase.Get(command.VariableId)?.Value.Integer;
+                            break;
+                    }
+                }
+
+                //additional validations start here
+                bool validation = true;
+
+                //we check if the skill has a class requirement:
+                var skillBase = SkillBase.Get(command.SkillId);
+                if (skillBase != null)
+                {
+                    if (skillBase.Class != null && skillBase.ClassId != player.ClassId)
+                    {
+                        validation = false;
+                    }
+                }
+
+                if (validation)
+                {
+                    int slot = player.GetSkillSlot(command.SkillId);
+                    var skillInstance = player.Skills[slot].Clone();
+
+                    player.GiveSkillExperience(skillInstance, quantity);
+                }
+            }
+        }
+
+        //Change Skill Level Command
+        private static void ProcessCommand(
+            ChangeSkillLevelCommand command,
+            Player player,
+            Event instance,
+            CommandInstance stackInfo,
+            Stack<CommandInstance> callStack
+        )
+        {
+            if (player.FindSkill(command.SkillId) > -1 && command.SkillId != Guid.Empty)
+            {
+                //additional validations start here
+                bool validation = true;
+
+                //we check if the skill has a class requirement:
+                var skillBase = SkillBase.Get(command.SkillId);
+                if (skillBase != null)
+                {
+                    if (skillBase.Class != null && skillBase.ClassId != player.ClassId)
+                    {
+                        validation = false;
+                    }
+                }
+
+                if (validation)
+                {
+                    int slot = player.GetSkillSlot(command.SkillId);
+                    var skillInstance = player.Skills[slot].Clone();
+                    player.SetSkillLevel(skillInstance, command.Level, true);
+                }
+
+            }
+        }
+
         //Change Items Command
         private static void ProcessCommand(
             ChangeItemsCommand command,

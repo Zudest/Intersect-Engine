@@ -58,11 +58,22 @@ namespace Intersect.Client.Interface.Game
             skillDesc.AddLineBreak();
 
             //Experience
-            skillDesc.AddText(
-                    Strings.SkillDesc.experience.ToString(playerExperience, skill.ExperienceToNextLevel(playerLevel + 1)), skillDesc.RenderColor,
+            if (playerLevel != skill.MaxLevel)
+            {
+                skillDesc.AddText(
+                    Strings.SkillDesc.experience.ToString(playerExperience, skill.ExperienceToNextLevel(playerLevel)), skillDesc.RenderColor,
                     skillDescText.CurAlignments.Count > 0 ? skillDescText.CurAlignments[0] : Alignments.Left,
                     skillDescText.Font
                 );
+            }
+            else
+            { //Max Level experience display:
+                skillDesc.AddText(
+                    Strings.SkillDesc.experience.ToString(playerExperience, skill.ExperienceToNextLevel(skill.MaxLevel - 1)), skillDesc.RenderColor,
+                    skillDescText.CurAlignments.Count > 0 ? skillDescText.CurAlignments[0] : Alignments.Left,
+                    skillDescText.Font
+                );
+            }
             skillDesc.AddLineBreak();
             skillDesc.AddLineBreak();
 

@@ -239,6 +239,9 @@ namespace Intersect.GameObjects.Events
 
         //Skills
         ChangeSkills,
+        SkillLevelUp,
+        GiveSkillExperience,
+        ChangeSkillLevel,
     }
 
 }

@@ -42,6 +42,8 @@ namespace Intersect.Enums
 
         UserVariableChange,
 
+        SkillLevelUp,
+
     }
 
 }

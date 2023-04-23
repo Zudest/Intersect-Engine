@@ -922,6 +922,42 @@ namespace Intersect.Editor.Forms.Editors.Events
             );
         }
 
+        private static string GetCommandText(SkillLevelUpCommand command, MapInstance map)
+        {
+            var skillName = SkillBase.GetName(command.SkillId) ?? string.Empty;
+            return Strings.EventCommandList.skilllevelup.ToString(skillName);
+        }
+
+        private static string GetCommandText(GiveSkillExperienceCommand command, MapInstance map)
+        {
+            var skillName = SkillBase.GetName(command.SkillId) ?? string.Empty;
+            if (command.UseVariable)
+            {
+                var exp = string.Empty;
+                switch (command.VariableType)
+                {
+                    case VariableType.PlayerVariable:
+                        exp = string.Format(@"({0}: {1})", Strings.EventGiveExperience.PlayerVariable, PlayerVariableBase.GetName(command.VariableId));
+                        break;
+                    case VariableType.ServerVariable:
+                        exp = string.Format(@"({0}: {1})", Strings.EventGiveExperience.ServerVariable, ServerVariableBase.GetName(command.VariableId));
+                        break;
+                }
+
+                return Strings.EventCommandList.giveskillexp.ToString(exp, skillName);
+            }
+            else
+            {
+                return Strings.EventCommandList.giveskillexp.ToString(command.Exp, skillName);
+            }
+        }
+
+        private static string GetCommandText(ChangeSkillLevelCommand command, MapInstance map)
+        {
+            var skillName = SkillBase.GetName(command.SkillId) ?? string.Empty;
+            return Strings.EventCommandList.setskilllevel.ToString(command.Level, skillName);
+        }
+
         private static string GetCommandText(ChangeItemsCommand command, MapInstance map)
         {
             if (command.Add)

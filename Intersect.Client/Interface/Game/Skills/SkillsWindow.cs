@@ -26,6 +26,10 @@ namespace Intersect.Client.Interface.Game.Skills
         //Item/Skill Rendering
         private ScrollControl mItemContainer;
 
+        private List<Label> mTextLevel = new List<Label>();
+
+        private List<Label> mTextMaxLevel = new List<Label>();
+
         //Controls
         private WindowControl mSkillWindow;
 
@@ -73,21 +77,26 @@ namespace Intersect.Client.Interface.Game.Skills
                         if (activeSkill.Class != null && activeSkill.ClassId != Globals.Me.Class)
                         {
                             Items[i].Pnl.IsHidden = true;
+                            mTextLevel[i].IsHidden = true;
+                            mTextMaxLevel[i].IsHidden = true;
                             continue;
                         }
                     }
 
                     Items[i].Pnl.IsHidden = false;
+                    mTextLevel[i].IsHidden = false;
+                    mTextLevel[i].Text = Globals.Me.Skills[i].Level.ToString();
+                    mTextMaxLevel[i].IsHidden = false;
+                    mTextMaxLevel[i].Text = activeSkill.MaxLevel.ToString();
                     Items[i].Update();
                 }
                 else
                 {
                     Items[i].Pnl.IsHidden = true;
+                    mTextLevel[i].IsHidden = true;
+                    mTextMaxLevel[i].IsHidden = true;
                 }
             }
-
-            //re-order the slots go here?
-
 
         }
 
@@ -98,6 +107,12 @@ namespace Intersect.Client.Interface.Game.Skills
                 Items.Add(new SkillItem(this, i));
                 Items[i].Container = new ImagePanel(mItemContainer, "Skill");
                 Items[i].Setup();
+
+                mTextLevel.Add(new Label(Items[i].Container, "SkillTextLevel"));
+                mTextLevel[i].Text = "";
+
+                mTextMaxLevel.Add(new Label(Items[i].Container, "SkillTextMaxLevel"));
+                mTextMaxLevel[i].Text = "";
 
                 Items[i].Container.LoadJsonUi(GameContentManager.UI.InGame, Graphics.Renderer.GetResolutionString());
 

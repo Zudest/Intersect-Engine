@@ -186,6 +186,7 @@ namespace Intersect.Client.Interface.Game.Hotbar
                     mCurrentItem, 1, mHotbarWindow.X + (mHotbarWindow.Width / 2), mHotbarWindow.Y + mHotbarWindow.Height + 2,
                     mInventoryItem?.ItemProperties, mCurrentItem.Name, "", true
                 );
+                mItemDescWindow.AdjustForHotbar(0, mHotbarWindow.Y - 8);
             }
             else if (mCurrentSpell != null)
             {
@@ -198,6 +199,7 @@ namespace Intersect.Client.Interface.Game.Hotbar
                 mSpellDescWindow = new SpellDescriptionWindow(
                     mCurrentSpell.Id, mHotbarWindow.X + (mHotbarWindow.Width / 2), mHotbarWindow.Y + mHotbarWindow.Height + 2, true
                 );
+                mSpellDescWindow.AdjustForHotbar(0, mHotbarWindow.Y - 8);
             }
         }
 

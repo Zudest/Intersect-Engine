@@ -167,5 +167,13 @@ namespace Intersect.Client.Interface.Game.DescriptionWindows
 
             mContainer.MoveTo(newX, newY);
         }
+
+        public void AdjustForHotbar(int newX, int newY)
+        {
+            if (newX == 0) newX = mContainer.X;
+            if (newY == 0) newY = mContainer.Y;
+
+            mContainer.MoveTo(newX, newY - mContainer.InnerHeight);
+        }
     }
 }

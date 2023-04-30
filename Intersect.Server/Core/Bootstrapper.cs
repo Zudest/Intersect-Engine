@@ -307,12 +307,20 @@ namespace Intersect.Server.Core
         {
             Console.Clear();
             Console.WriteLine();
-            Console.WriteLine(@"  _____       _                          _   ");
-            Console.WriteLine(@" |_   _|     | |                        | |  ");
-            Console.WriteLine(@"   | |  _ __ | |_ ___ _ __ ___  ___  ___| |_ ");
-            Console.WriteLine(@"   | | | '_ \| __/ _ \ '__/ __|/ _ \/ __| __|");
-            Console.WriteLine(@"  _| |_| | | | ||  __/ |  \__ \  __/ (__| |_ ");
-            Console.WriteLine(@" |_____|_| |_|\__\___|_|  |___/\___|\___|\__|");
+            //Console.WriteLine(@"  _____       _                          _   ");
+            //Console.WriteLine(@" |_   _|     | |                        | |  ");
+            //Console.WriteLine(@"   | |  _ __ | |_ ___ _ __ ___  ___  ___| |_ ");
+            //Console.WriteLine(@"   | | | '_ \| __/ _ \ '__/ __|/ _ \/ __| __|");
+            //Console.WriteLine(@"  _| |_| | | | ||  __/ |  \__ \  __/ (__| |_ ");
+            //Console.WriteLine(@" |_____|_| |_|\__\___|_|  |___/\___|\___|\__|");
+            Console.WriteLine(@"___________             .__.__        _________              ");
+            Console.WriteLine(@"\_   _____/ ____ ______ |__|  |__    /   _____/ ____ _____   ");
+            Console.WriteLine(@" |    __)_ /    \\____ \|  |  |  \   \_____  \_/ __ \\__  \  ");
+            Console.WriteLine(@" |        \   |  \  |_> >  |   Y  \  /        \  ___/ / __ \_");
+            Console.WriteLine(@"/_______  /___|  /   __/|__|___|  / /_______  /\___  >____  /");
+            Console.WriteLine(@"        \/     \/|__|           \/          \/     \/     \/ ");
+            Console.WriteLine("");
+            Console.WriteLine("                          powered by Intersect");
             Console.WriteLine(Strings.Intro.tagline);
             Console.WriteLine(@"Copyright (C) 2020 Ascension Game Dev");
             Console.WriteLine(Strings.Intro.version.ToString(Assembly.GetExecutingAssembly().GetName().Version));

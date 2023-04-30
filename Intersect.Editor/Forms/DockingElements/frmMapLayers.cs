@@ -143,8 +143,8 @@ namespace Intersect.Editor.Forms.DockingElements
             }
 
             mTMouseDown = true;
-            Globals.CurSelX = (int) Math.Floor((double) e.X / Options.TileWidth);
-            Globals.CurSelY = (int) Math.Floor((double) e.Y / Options.TileHeight);
+            Globals.CurSelX = (int) Math.Floor((double) e.X / Options.EditorTileWidth);
+            Globals.CurSelY = (int) Math.Floor((double) e.Y / Options.EditorTileHeight);
             Globals.CurSelW = 0;
             Globals.CurSelH = 0;
             if (Globals.CurSelX < 0)
@@ -202,8 +202,8 @@ namespace Intersect.Editor.Forms.DockingElements
 
             if (mTMouseDown && Globals.Autotilemode == 0)
             {
-                var tmpX = (int) Math.Floor((double) e.X / Options.TileWidth);
-                var tmpY = (int) Math.Floor((double) e.Y / Options.TileHeight);
+                var tmpX = (int) Math.Floor((double) e.X / Options.EditorTileWidth);
+                var tmpY = (int) Math.Floor((double) e.Y / Options.EditorTileHeight);
                 Globals.CurSelW = tmpX - Globals.CurSelX;
                 Globals.CurSelH = tmpY - Globals.CurSelY;
             }

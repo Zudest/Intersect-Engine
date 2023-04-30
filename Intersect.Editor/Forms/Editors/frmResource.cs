@@ -431,8 +431,8 @@ namespace Intersect.Editor.Forms.Editors
                 gfx.DrawRectangle(
                     new Pen(System.Drawing.Color.White, 2f),
                     new Rectangle(
-                        selX * Options.TileWidth, selY * Options.TileHeight,
-                        Options.TileWidth + selW * Options.TileWidth, Options.TileHeight + selH * Options.TileHeight
+                        selX * Options.EditorTileWidth, selY * Options.EditorTileHeight,
+                        Options.EditorTileWidth + selW * Options.EditorTileWidth, Options.EditorTileHeight + selH * Options.EditorTileHeight
                     )
                 );
             }
@@ -475,8 +475,8 @@ namespace Intersect.Editor.Forms.Editors
                 gfx.DrawRectangle(
                     new Pen(System.Drawing.Color.White, 2f),
                     new Rectangle(
-                        selX * Options.TileWidth, selY * Options.TileHeight,
-                        Options.TileWidth + selW * Options.TileWidth, Options.TileHeight + selH * Options.TileHeight
+                        selX * Options.EditorTileWidth, selY * Options.EditorTileHeight,
+                        Options.EditorTileWidth + selW * Options.EditorTileWidth, Options.EditorTileHeight + selH * Options.EditorTileHeight
                     )
                 );
             }
@@ -689,8 +689,8 @@ namespace Intersect.Editor.Forms.Editors
             }
 
             mMouseDown = true;
-            mEditorItem.Initial.X = (int) Math.Floor((double) e.X / Options.TileWidth);
-            mEditorItem.Initial.Y = (int) Math.Floor((double) e.Y / Options.TileHeight);
+            mEditorItem.Initial.X = (int) Math.Floor((double) e.X / Options.EditorTileWidth);
+            mEditorItem.Initial.Y = (int) Math.Floor((double) e.Y / Options.EditorTileHeight);
             mEditorItem.Initial.Width = 0;
             mEditorItem.Initial.Height = 0;
             if (mEditorItem.Initial.X < 0)
@@ -756,8 +756,8 @@ namespace Intersect.Editor.Forms.Editors
 
             if (mMouseDown)
             {
-                var tmpX = (int) Math.Floor((double) e.X / Options.TileWidth);
-                var tmpY = (int) Math.Floor((double) e.Y / Options.TileHeight);
+                var tmpX = (int) Math.Floor((double) e.X / Options.EditorTileWidth);
+                var tmpY = (int) Math.Floor((double) e.Y / Options.EditorTileHeight);
                 mEditorItem.Initial.Width = tmpX - mEditorItem.Initial.X;
                 mEditorItem.Initial.Height = tmpY - mEditorItem.Initial.Y;
             }
@@ -778,8 +778,8 @@ namespace Intersect.Editor.Forms.Editors
             }
 
             mMouseDown = true;
-            mEditorItem.Exhausted.X = (int) Math.Floor((double) e.X / Options.TileWidth);
-            mEditorItem.Exhausted.Y = (int) Math.Floor((double) e.Y / Options.TileHeight);
+            mEditorItem.Exhausted.X = (int) Math.Floor((double) e.X / Options.EditorTileWidth);
+            mEditorItem.Exhausted.Y = (int) Math.Floor((double) e.Y / Options.EditorTileHeight);
             mEditorItem.Exhausted.Width = 0;
             mEditorItem.Exhausted.Height = 0;
             if (mEditorItem.Exhausted.X < 0)
@@ -845,8 +845,8 @@ namespace Intersect.Editor.Forms.Editors
 
             if (mMouseDown)
             {
-                var tmpX = (int) Math.Floor((double) e.X / Options.TileWidth);
-                var tmpY = (int) Math.Floor((double) e.Y / Options.TileHeight);
+                var tmpX = (int) Math.Floor((double) e.X / Options.EditorTileWidth);
+                var tmpY = (int) Math.Floor((double) e.Y / Options.EditorTileHeight);
                 mEditorItem.Exhausted.Width = tmpX - mEditorItem.Exhausted.X;
                 mEditorItem.Exhausted.Height = tmpY - mEditorItem.Exhausted.Y;
             }

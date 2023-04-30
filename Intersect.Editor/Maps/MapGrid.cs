@@ -195,8 +195,8 @@ namespace Intersect.Editor.Maps
 
                 mMaxZoom = 1f; //Real Size
                 Zoom = mMinZoom;
-                TileWidth = (int) (Options.TileWidth * Options.MapWidth * Zoom);
-                TileHeight = (int) (Options.TileHeight * Options.MapHeight * Zoom);
+                TileWidth = (int) (Options.EditorTileWidth * Options.MapWidth * Zoom);
+                TileHeight = (int) (Options.EditorTileHeight * Options.MapHeight * Zoom);
                 ContentRect = new Rectangle(
                     ViewRect.Width / 2 - TileWidth * (GridWidth + 2) / 2,
                     ViewRect.Height / 2 - TileHeight * (GridHeight + 2) / 2, TileWidth * (GridWidth + 2),
@@ -284,8 +284,8 @@ namespace Intersect.Editor.Maps
 
         void ScreenshotWorld(string filename)
         {
-            var rowSize = Options.TileHeight * Options.MapHeight;
-            var colSize = Options.MapWidth * Options.TileWidth;
+            var rowSize = Options.EditorTileHeight * Options.MapHeight;
+            var colSize = Options.MapWidth * Options.EditorTileWidth;
             var cols = colSize * GridWidth;
             var rows = rowSize * GridHeight;
             var tmpBitmap = new Bitmap(colSize, rowSize);
@@ -686,8 +686,8 @@ namespace Intersect.Editor.Maps
         public void Update(Microsoft.Xna.Framework.Rectangle panelBounds)
         {
             mMinZoom = Math.Min(
-                           panelBounds.Width / (float) (Options.TileWidth * Options.MapWidth * (GridWidth + 2)),
-                           panelBounds.Height / (float) (Options.TileHeight * Options.MapHeight * (GridHeight + 2))
+                           panelBounds.Width / (float) (Options.EditorTileWidth * Options.MapWidth * (GridWidth + 2)),
+                           panelBounds.Height / (float) (Options.EditorTileHeight * Options.MapHeight * (GridHeight + 2))
                        ) /
                        2f;
 
@@ -695,8 +695,8 @@ namespace Intersect.Editor.Maps
             if (Zoom < mMinZoom)
             {
                 Zoom = mMinZoom * 2;
-                TileWidth = (int) (Options.TileWidth * Options.MapWidth * Zoom);
-                TileHeight = (int) (Options.TileHeight * Options.MapHeight * Zoom);
+                TileWidth = (int) (Options.EditorTileWidth * Options.MapWidth * Zoom);
+                TileHeight = (int) (Options.EditorTileHeight * Options.MapHeight * Zoom);
                 ContentRect = new Rectangle(0, 0, TileWidth * (GridWidth + 2), TileHeight * (GridHeight + 2));
                 lock (mTexLock)
                 {
@@ -899,8 +899,8 @@ namespace Intersect.Editor.Maps
                 Zoom = mMaxZoom;
             }
 
-            TileWidth = (int) (Options.TileWidth * Options.MapWidth * Zoom);
-            TileHeight = (int) (Options.TileHeight * Options.MapHeight * Zoom);
+            TileWidth = (int) (Options.EditorTileWidth * Options.MapWidth * Zoom);
+            TileHeight = (int) (Options.EditorTileHeight * Options.MapHeight * Zoom);
 
             //were gonna get the X/Y of where the content rect would need so that the grid location that the mouse is hovering over would be center of the viewing rect
             //Get the current location of the mouse over the current content rectangle

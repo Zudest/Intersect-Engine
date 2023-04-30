@@ -60,12 +60,12 @@ namespace Intersect.Editor.Forms.DockingElements
             PacketHandler.MapUpdatedDelegate += InitMapEditor;
             picMap.Size = pnlMapContainer.ClientSize;
             picMap.MinimumSize = new Size(
-                (Options.MapWidth + 2) * Options.TileWidth, (Options.MapHeight + 2) * Options.TileHeight
+                (Options.MapWidth + 2) * Options.EditorTileWidth, (Options.MapHeight + 2) * Options.EditorTileHeight
             );
 
             Core.Graphics.CurrentView = new Rectangle(
-                (picMap.Size.Width - Options.MapWidth * Options.TileWidth) / 2,
-                (picMap.Size.Height - Options.MapHeight * Options.TileHeight) / 2, picMap.Size.Width, picMap.Size.Height
+                (picMap.Size.Width - Options.MapWidth * Options.EditorTileWidth) / 2,
+                (picMap.Size.Height - Options.MapHeight * Options.EditorTileHeight) / 2, picMap.Size.Width, picMap.Size.Height
             );
 
             CreateSwapChain();
@@ -83,12 +83,12 @@ namespace Intersect.Editor.Forms.DockingElements
                 pnlMapContainer.AutoScroll = true;
                 picMap.Size = pnlMapContainer.ClientSize;
                 picMap.MinimumSize = new Size(
-                    (Options.MapWidth + 2) * Options.TileWidth, (Options.MapHeight + 2) * Options.TileHeight
+                    (Options.MapWidth + 2) * Options.EditorTileWidth, (Options.MapHeight + 2) * Options.EditorTileHeight
                 );
 
                 Core.Graphics.CurrentView = new Rectangle(
-                    (picMap.Size.Width - Options.MapWidth * Options.TileWidth) / 2,
-                    (picMap.Size.Height - Options.MapHeight * Options.TileHeight) / 2, picMap.Size.Width,
+                    (picMap.Size.Width - Options.MapWidth * Options.EditorTileWidth) / 2,
+                    (picMap.Size.Height - Options.MapHeight * Options.EditorTileHeight) / 2, picMap.Size.Width,
                     picMap.Size.Height
                 );
 
@@ -197,8 +197,8 @@ namespace Intersect.Editor.Forms.DockingElements
 
             if (e.X < Core.Graphics.CurrentView.Left ||
                 e.Y < Core.Graphics.CurrentView.Top ||
-                e.X > Core.Graphics.CurrentView.Left + Options.MapWidth * Options.TileWidth ||
-                e.Y > Core.Graphics.CurrentView.Top + Options.MapHeight * Options.TileHeight)
+                e.X > Core.Graphics.CurrentView.Left + Options.MapWidth * Options.EditorTileWidth ||
+                e.Y > Core.Graphics.CurrentView.Top + Options.MapHeight * Options.EditorTileHeight)
             {
                 if (Globals.Dragging)
                 {
@@ -524,24 +524,24 @@ namespace Intersect.Editor.Forms.DockingElements
             {
                 Core.Graphics.CurrentView.X -= Globals.MouseX - e.X;
                 Core.Graphics.CurrentView.Y -= Globals.MouseY - e.Y;
-                if (Core.Graphics.CurrentView.X > Options.MapWidth * Options.TileWidth)
+                if (Core.Graphics.CurrentView.X > Options.MapWidth * Options.EditorTileWidth)
                 {
-                    Core.Graphics.CurrentView.X = Options.MapWidth * Options.TileWidth;
+                    Core.Graphics.CurrentView.X = Options.MapWidth * Options.EditorTileWidth;
                 }
 
-                if (Core.Graphics.CurrentView.Y > Options.MapHeight * Options.TileHeight)
+                if (Core.Graphics.CurrentView.Y > Options.MapHeight * Options.EditorTileHeight)
                 {
-                    Core.Graphics.CurrentView.Y = Options.MapHeight * Options.TileHeight;
+                    Core.Graphics.CurrentView.Y = Options.MapHeight * Options.EditorTileHeight;
                 }
 
-                if (Core.Graphics.CurrentView.X - picMap.Width < -Options.TileWidth * Options.MapWidth * 2)
+                if (Core.Graphics.CurrentView.X - picMap.Width < -Options.EditorTileWidth * Options.MapWidth * 2)
                 {
-                    Core.Graphics.CurrentView.X = -Options.TileWidth * Options.MapWidth * 2 + picMap.Width;
+                    Core.Graphics.CurrentView.X = -Options.EditorTileWidth * Options.MapWidth * 2 + picMap.Width;
                 }
 
-                if (Core.Graphics.CurrentView.Y - picMap.Height < -Options.TileHeight * Options.MapHeight * 2)
+                if (Core.Graphics.CurrentView.Y - picMap.Height < -Options.EditorTileHeight * Options.MapHeight * 2)
                 {
-                    Core.Graphics.CurrentView.Y = -Options.TileHeight * Options.MapHeight * 2 + picMap.Height;
+                    Core.Graphics.CurrentView.Y = -Options.EditorTileHeight * Options.MapHeight * 2 + picMap.Height;
                 }
             }
 
@@ -550,8 +550,8 @@ namespace Intersect.Editor.Forms.DockingElements
 
             if (e.X < Core.Graphics.CurrentView.Left ||
                 e.Y < Core.Graphics.CurrentView.Top ||
-                e.X > Core.Graphics.CurrentView.Left + Options.MapWidth * Options.TileWidth ||
-                e.Y > Core.Graphics.CurrentView.Top + Options.MapHeight * Options.TileHeight)
+                e.X > Core.Graphics.CurrentView.Left + Options.MapWidth * Options.EditorTileWidth ||
+                e.Y > Core.Graphics.CurrentView.Top + Options.MapHeight * Options.EditorTileHeight)
             {
                 tooltipMapAttribute.Hide();
                 return;
@@ -559,8 +559,8 @@ namespace Intersect.Editor.Forms.DockingElements
 
             var oldx = Globals.CurTileX;
             var oldy = Globals.CurTileY;
-            Globals.CurTileX = (int) Math.Floor((double) (e.X - Core.Graphics.CurrentView.Left) / Options.TileWidth);
-            Globals.CurTileY = (int) Math.Floor((double) (e.Y - Core.Graphics.CurrentView.Top) / Options.TileHeight);
+            Globals.CurTileX = (int) Math.Floor((double) (e.X - Core.Graphics.CurrentView.Left) / Options.EditorTileWidth);
+            Globals.CurTileY = (int) Math.Floor((double) (e.Y - Core.Graphics.CurrentView.Top) / Options.EditorTileHeight);
             if (Globals.CurTileX < 0)
             {
                 Globals.CurTileX = 0;
@@ -591,17 +591,17 @@ namespace Intersect.Editor.Forms.DockingElements
                     tooltipMapAttribute.PerformLayout();
 
                     var currentView = Core.Graphics.CurrentView;
-                    var left = currentView.Left + Options.TileWidth * (Globals.CurTileX + 1);
-                    var top = currentView.Top + Options.TileHeight * Globals.CurTileY;
+                    var left = currentView.Left + Options.EditorTileWidth * (Globals.CurTileX + 1);
+                    var top = currentView.Top + Options.EditorTileHeight * Globals.CurTileY;
 
                     if (currentView.Width < left + tooltipMapAttribute.Width)
                     {
-                        left -= tooltipMapAttribute.Width + Options.TileWidth;
+                        left -= tooltipMapAttribute.Width + Options.EditorTileWidth;
                     }
 
                     if (currentView.Height < top + tooltipMapAttribute.Height)
                     {
-                        top -= tooltipMapAttribute.Height - Options.TileHeight;
+                        top -= tooltipMapAttribute.Height - Options.EditorTileHeight;
                     }
 
                     tooltipMapAttribute.Location = new System.Drawing.Point(left, top);
@@ -1015,7 +1015,7 @@ namespace Intersect.Editor.Forms.DockingElements
                 gridX = -1;
             }
 
-            if (Globals.MouseX > Core.Graphics.CurrentView.Left + Options.MapWidth * Options.TileWidth)
+            if (Globals.MouseX > Core.Graphics.CurrentView.Left + Options.MapWidth * Options.EditorTileWidth)
             {
                 gridX = 1;
             }
@@ -1025,7 +1025,7 @@ namespace Intersect.Editor.Forms.DockingElements
                 gridY = -1;
             }
 
-            if (Globals.MouseY > Core.Graphics.CurrentView.Top + Options.MapHeight * Options.TileHeight)
+            if (Globals.MouseY > Core.Graphics.CurrentView.Top + Options.MapHeight * Options.EditorTileHeight)
             {
                 gridY = 1;
             }
@@ -2325,12 +2325,12 @@ namespace Intersect.Editor.Forms.DockingElements
 
             picMap.Size = pnlMapContainer.ClientSize;
             picMap.MinimumSize = new Size(
-                (Options.MapWidth + 2) * Options.TileWidth, (Options.MapHeight + 2) * Options.TileHeight
+                (Options.MapWidth + 2) * Options.EditorTileWidth, (Options.MapHeight + 2) * Options.EditorTileHeight
             );
 
             Core.Graphics.CurrentView = new Rectangle(
-                (picMap.Size.Width - Options.MapWidth * Options.TileWidth) / 2,
-                (picMap.Size.Height - Options.MapHeight * Options.TileHeight) / 2, picMap.Size.Width, picMap.Size.Height
+                (picMap.Size.Width - Options.MapWidth * Options.EditorTileWidth) / 2,
+                (picMap.Size.Height - Options.MapHeight * Options.EditorTileHeight) / 2, picMap.Size.Width, picMap.Size.Height
             );
 
             CreateSwapChain();

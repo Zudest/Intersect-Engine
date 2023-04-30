@@ -107,8 +107,8 @@ namespace Intersect.Editor.Core
             {
                 //Create the Graphics Device
                 sPresentationParams.IsFullScreen = false;
-                sPresentationParams.BackBufferWidth = (Options.TileWidth + 2) * Options.MapWidth;
-                sPresentationParams.BackBufferHeight = (Options.TileHeight + 2) * Options.MapHeight;
+                sPresentationParams.BackBufferWidth = (Options.EditorTileWidth + 2) * Options.MapWidth;
+                sPresentationParams.BackBufferHeight = (Options.EditorTileHeight + 2) * Options.MapHeight;
                 sPresentationParams.RenderTargetUsage = RenderTargetUsage.DiscardContents;
                 sPresentationParams.PresentationInterval = PresentInterval.Immediate;
 
@@ -390,8 +390,8 @@ namespace Intersect.Editor.Core
                 DrawTexture(
                     sWhiteTex, new RectangleF(0, 0, 1, 1),
                     new RectangleF(
-                        CurrentView.Left + x * Options.TileWidth, CurrentView.Top, 1,
-                        Options.MapHeight * Options.TileHeight
+                        CurrentView.Left + x * Options.EditorTileWidth, CurrentView.Top, 1,
+                        Options.MapHeight * Options.EditorTileHeight
                     ), null
                 );
             }
@@ -401,8 +401,8 @@ namespace Intersect.Editor.Core
                 DrawTexture(
                     sWhiteTex, new RectangleF(0, 0, 1, 1),
                     new RectangleF(
-                        CurrentView.Left, CurrentView.Top + y * Options.TileHeight,
-                        Options.MapWidth * Options.TileWidth, 1
+                        CurrentView.Left, CurrentView.Top + y * Options.EditorTileHeight,
+                        Options.MapWidth * Options.EditorTileWidth, 1
                     ), null
                 );
             }
@@ -416,22 +416,22 @@ namespace Intersect.Editor.Core
                 return;
             }
 
-            var xoffset = CurrentView.Left + gridX * Options.TileWidth * Options.MapWidth;
-            var yoffset = CurrentView.Top + gridY * Options.TileHeight * Options.MapHeight;
+            var xoffset = CurrentView.Left + gridX * Options.EditorTileWidth * Options.MapWidth;
+            var yoffset = CurrentView.Top + gridY * Options.EditorTileHeight * Options.MapHeight;
             for (var x = 0; x < Options.MapWidth; x++)
             {
                 for (var y = 0; y < Options.MapHeight; y++)
                 {
                     if (new System.Drawing.Rectangle(
-                        x * Options.TileWidth + xoffset, y * Options.TileHeight + yoffset, Options.TileWidth,
-                        Options.TileHeight
+                        x * Options.EditorTileWidth + xoffset, y * Options.EditorTileHeight + yoffset, Options.EditorTileWidth,
+                        Options.EditorTileHeight
                     ).IntersectsWith(new System.Drawing.Rectangle(0, 0, CurrentView.Width, CurrentView.Height)))
                     {
                         DrawTexture(
                             transTex, new RectangleF(0, 0, transTex.Width, transTex.Height),
                             new RectangleF(
-                                xoffset + x * Options.TileWidth, yoffset + y * Options.TileHeight, Options.TileWidth,
-                                Options.TileHeight
+                                xoffset + x * Options.EditorTileWidth, yoffset + y * Options.EditorTileHeight, Options.EditorTileWidth,
+                                Options.EditorTileHeight
                             ), System.Drawing.Color.White, null
                         );
                     }
@@ -457,19 +457,19 @@ namespace Intersect.Editor.Core
             switch (map.Layers[layerName][x, y].Autotile)
             {
                 case MapAutotiles.AUTOTILE_WATERFALL:
-                    yOffset = (Globals.WaterfallFrame - 1) * Options.TileHeight;
+                    yOffset = (Globals.WaterfallFrame - 1) * Options.EditorTileHeight;
 
                     break;
                 case MapAutotiles.AUTOTILE_ANIM:
-                    xOffset = Globals.AutotileFrame * Options.TileWidth * 2;
+                    xOffset = Globals.AutotileFrame * Options.EditorTileWidth * 2;
 
                     break;
                 case MapAutotiles.AUTOTILE_ANIM_XP:
-                    xOffset = Globals.AutotileFrame * Options.TileWidth * 3;
+                    xOffset = Globals.AutotileFrame * Options.EditorTileWidth * 3;
 
                     break;
                 case MapAutotiles.AUTOTILE_CLIFF:
-                    yOffset = -Options.TileHeight;
+                    yOffset = -Options.EditorTileHeight;
 
                     break;
             }
@@ -478,7 +478,7 @@ namespace Intersect.Editor.Core
                 texture, destX, destY,
                 (int) map.Autotiles.Layers[layerName][x, y].QuarterTile[quarterNum].X + xOffset,
                 (int) map.Autotiles.Layers[layerName][x, y].QuarterTile[quarterNum].Y + yOffset,
-                Options.TileWidth / 2, Options.TileHeight / 2, target
+                Options.EditorTileWidth / 2, Options.EditorTileHeight / 2, target
             );
         }
 
@@ -535,8 +535,8 @@ namespace Intersect.Editor.Core
             x2 = Options.MapWidth;
             y1 = 0;
             y2 = Options.MapHeight;
-            xoffset = CurrentView.Left + gridX * Options.TileWidth * Options.MapWidth;
-            yoffset = CurrentView.Top + gridY * Options.TileHeight * Options.MapHeight;
+            xoffset = CurrentView.Left + gridX * Options.EditorTileWidth * Options.MapWidth;
+            yoffset = CurrentView.Top + gridY * Options.EditorTileHeight * Options.MapHeight;
             if (gridX != 0 || gridY != 0)
             {
                 tmpMap = map;
@@ -745,8 +745,8 @@ namespace Intersect.Editor.Core
                         if (screenShotting || Globals.MapLayersWindow.LayerVisibility[drawLayer])
                         {
                             if (new System.Drawing.Rectangle(
-                                x * Options.TileWidth + xoffset, y * Options.TileHeight + yoffset, Options.TileWidth,
-                                Options.TileHeight
+                                x * Options.EditorTileWidth + xoffset, y * Options.EditorTileHeight + yoffset, Options.EditorTileWidth,
+                                Options.EditorTileHeight
                             ).IntersectsWith(new System.Drawing.Rectangle(0, 0, CurrentView.Width, CurrentView.Height)))
                             {
                                 var tilesetObj = TilesetBase.Get(tmpMap.Layers[drawLayer][x, y].TilesetId);
@@ -784,34 +784,34 @@ namespace Intersect.Editor.Core
                                     }
 
                                     DrawAutoTile(
-                                        tilesetTex, drawLayer, x * Options.TileWidth + xoffset,
-                                        y * Options.TileHeight + yoffset, 1, x, y, tmpMap, renderTarget2D
+                                        tilesetTex, drawLayer, x * Options.EditorTileWidth + xoffset,
+                                        y * Options.EditorTileHeight + yoffset, 1, x, y, tmpMap, renderTarget2D
                                     );
 
                                     DrawAutoTile(
-                                        tilesetTex, drawLayer, x * Options.TileWidth + Options.TileWidth / 2 + xoffset,
-                                        y * Options.TileHeight + yoffset, 2, x, y, tmpMap, renderTarget2D
+                                        tilesetTex, drawLayer, x * Options.EditorTileWidth + Options.EditorTileWidth / 2 + xoffset,
+                                        y * Options.EditorTileHeight + yoffset, 2, x, y, tmpMap, renderTarget2D
                                     );
 
                                     DrawAutoTile(
-                                        tilesetTex, drawLayer, x * Options.TileWidth + xoffset,
-                                        y * Options.TileHeight + Options.TileHeight / 2 + yoffset, 3, x, y, tmpMap,
+                                        tilesetTex, drawLayer, x * Options.EditorTileWidth + xoffset,
+                                        y * Options.EditorTileHeight + Options.EditorTileHeight / 2 + yoffset, 3, x, y, tmpMap,
                                         renderTarget2D
                                     );
 
                                     DrawAutoTile(
-                                        tilesetTex, drawLayer, x * Options.TileWidth + Options.TileWidth / 2 + xoffset,
-                                        y * Options.TileHeight + Options.TileHeight / 2 + yoffset, 4, x, y, tmpMap,
+                                        tilesetTex, drawLayer, x * Options.EditorTileWidth + Options.EditorTileWidth / 2 + xoffset,
+                                        y * Options.EditorTileHeight + Options.EditorTileHeight / 2 + yoffset, 4, x, y, tmpMap,
                                         renderTarget2D
                                     );
                                 }
                                 else
                                 {
                                     DrawTexture(
-                                        tilesetTex, x * Options.TileWidth + xoffset, y * Options.TileHeight + yoffset,
-                                        tmpMap.Layers[drawLayer][x, y].X * Options.TileWidth,
-                                        tmpMap.Layers[drawLayer][x, y].Y * Options.TileHeight, Options.TileWidth,
-                                        Options.TileHeight, renderTarget2D
+                                        tilesetTex, x * Options.EditorTileWidth + xoffset, y * Options.EditorTileHeight + yoffset,
+                                        tmpMap.Layers[drawLayer][x, y].X * Options.EditorTileWidth,
+                                        tmpMap.Layers[drawLayer][x, y].Y * Options.EditorTileHeight, Options.EditorTileWidth,
+                                        Options.EditorTileHeight, renderTarget2D
                                     );
                                 }
                             }
@@ -826,18 +826,18 @@ namespace Intersect.Editor.Core
                 {
                     double w = light.Size;
                     var x = xoffset +
-                            Options.MapWidth * Options.TileWidth -
+                            Options.MapWidth * Options.EditorTileWidth -
                             CurrentView.Left +
-                            light.TileX * Options.TileWidth +
+                            light.TileX * Options.EditorTileWidth +
                             light.OffsetX +
-                            Options.TileWidth / 2;
+                            Options.EditorTileWidth / 2;
 
                     var y = yoffset +
-                            Options.MapHeight * Options.TileHeight -
+                            Options.MapHeight * Options.EditorTileHeight -
                             CurrentView.Top +
-                            light.TileY * Options.TileHeight +
+                            light.TileY * Options.EditorTileHeight +
                             light.OffsetY +
-                            Options.TileHeight / 2;
+                            Options.EditorTileHeight / 2;
 
                     if (!HideDarkness)
                     {
@@ -921,10 +921,10 @@ namespace Intersect.Editor.Core
                                 }
 
                                 var tileBounds = new RectangleF(
-                                    CurrentView.Left + x * Options.TileWidth,
-                                    CurrentView.Top + y * Options.TileHeight,
-                                    Options.TileWidth,
-                                    Options.TileHeight
+                                    CurrentView.Left + x * Options.EditorTileWidth,
+                                    CurrentView.Top + y * Options.EditorTileHeight,
+                                    Options.EditorTileWidth,
+                                    Options.EditorTileHeight
                                 );
 
                                 if (attributesTex != null)
@@ -970,8 +970,8 @@ namespace Intersect.Editor.Core
                                 DrawTexture(
                                     eventTex, new RectangleF(0, 0, eventTex.Width, eventTex.Height),
                                     new RectangleF(
-                                        CurrentView.Left + x * Options.TileWidth,
-                                        CurrentView.Top + y * Options.TileHeight, Options.TileWidth, Options.TileHeight
+                                        CurrentView.Left + x * Options.EditorTileWidth,
+                                        CurrentView.Top + y * Options.EditorTileHeight, Options.EditorTileWidth, Options.EditorTileHeight
                                     ), System.Drawing.Color.White, null
                                 );
                             }
@@ -993,9 +993,9 @@ namespace Intersect.Editor.Core
                                 DrawTexture(
                                     spawnTex, new RectangleF(0, 0, spawnTex.Width, spawnTex.Height),
                                     new RectangleF(
-                                        CurrentView.Left + tmpMap.Spawns[i].X * Options.TileWidth,
-                                        CurrentView.Top + tmpMap.Spawns[i].Y * Options.TileHeight, Options.TileWidth,
-                                        Options.TileHeight
+                                        CurrentView.Left + tmpMap.Spawns[i].X * Options.EditorTileWidth,
+                                        CurrentView.Top + tmpMap.Spawns[i].Y * Options.EditorTileHeight, Options.EditorTileWidth,
+                                        Options.EditorTileHeight
                                     ), System.Drawing.Color.White, null
                                 );
                             }
@@ -1010,8 +1010,8 @@ namespace Intersect.Editor.Core
             if (Globals.CurrentTool == (int) EditingTool.Selection && Globals.Dragging)
             {
                 DrawBoxOutline(
-                    CurrentView.Left + Globals.CurTileX * Options.TileWidth,
-                    CurrentView.Top + Globals.CurTileY * Options.TileHeight, Options.TileWidth, Options.TileHeight,
+                    CurrentView.Left + Globals.CurTileX * Options.EditorTileWidth,
+                    CurrentView.Top + Globals.CurTileY * Options.EditorTileHeight, Options.EditorTileWidth, Options.EditorTileHeight,
                     System.Drawing.Color.White, null
                 );
             }
@@ -1020,16 +1020,16 @@ namespace Intersect.Editor.Core
                 Globals.CurrentTool == (int) EditingTool.Selection)
             {
                 DrawBoxOutline(
-                    CurrentView.Left + (selX + dragxoffset) * Options.TileWidth,
-                    CurrentView.Top + (selY + dragyoffset) * Options.TileHeight, (selW + 1) * Options.TileWidth,
-                    (selH + 1) * Options.TileHeight, System.Drawing.Color.Blue, null
+                    CurrentView.Left + (selX + dragxoffset) * Options.EditorTileWidth,
+                    CurrentView.Top + (selY + dragyoffset) * Options.EditorTileHeight, (selW + 1) * Options.EditorTileWidth,
+                    (selH + 1) * Options.EditorTileHeight, System.Drawing.Color.Blue, null
                 );
             }
             else
             {
                 DrawBoxOutline(
-                    CurrentView.Left + Globals.CurTileX * Options.TileWidth,
-                    CurrentView.Top + Globals.CurTileY * Options.TileHeight, Options.TileWidth, Options.TileHeight,
+                    CurrentView.Left + Globals.CurTileX * Options.EditorTileWidth,
+                    CurrentView.Top + Globals.CurTileY * Options.EditorTileHeight, Options.EditorTileWidth, Options.EditorTileHeight,
                     System.Drawing.Color.White, null
                 );
             }
@@ -1217,8 +1217,8 @@ namespace Intersect.Editor.Core
                     }
 
                     DrawBoxOutline(
-                        selX * Options.TileWidth, selY * Options.TileHeight,
-                        Options.TileWidth + selW * Options.TileWidth, Options.TileHeight + selH * Options.TileHeight,
+                        selX * Options.EditorTileWidth, selY * Options.EditorTileHeight,
+                        Options.EditorTileWidth + selW * Options.EditorTileWidth, Options.EditorTileHeight + selH * Options.EditorTileHeight,
                         System.Drawing.Color.White, sTilesetChain
                     );
                 }
@@ -1239,7 +1239,7 @@ namespace Intersect.Editor.Core
             //Horizontal Buttom
             DrawTexture(
                 sWhiteTex, new RectangleF(0, 0, 1, 1),
-                new RectangleF(0, CurrentView.Y + Options.TileHeight * Options.MapHeight - 1, CurrentView.Width, 3),
+                new RectangleF(0, CurrentView.Y + Options.EditorTileHeight * Options.MapHeight - 1, CurrentView.Width, 3),
                 System.Drawing.Color.DimGray
             );
 
@@ -1252,14 +1252,14 @@ namespace Intersect.Editor.Core
             //Vertical Right
             DrawTexture(
                 sWhiteTex, new RectangleF(0, 0, 1, 1),
-                new RectangleF(CurrentView.Left + Options.TileWidth * Options.MapWidth - 1, 0, 3, CurrentView.Height),
+                new RectangleF(CurrentView.Left + Options.EditorTileWidth * Options.MapWidth - 1, 0, 3, CurrentView.Height),
                 System.Drawing.Color.DimGray
             );
 
             //Horizontal Top
             DrawTexture(
                 sWhiteTex, new RectangleF(0, 0, 1, 1),
-                new RectangleF(CurrentView.Left, CurrentView.Y - 1, Options.TileWidth * Options.MapWidth, 3),
+                new RectangleF(CurrentView.Left, CurrentView.Y - 1, Options.EditorTileWidth * Options.MapWidth, 3),
                 System.Drawing.Color.DimGray
             );
 
@@ -1267,15 +1267,15 @@ namespace Intersect.Editor.Core
             DrawTexture(
                 sWhiteTex, new RectangleF(0, 0, 1, 1),
                 new RectangleF(
-                    CurrentView.Left, CurrentView.Y + Options.TileHeight * Options.MapHeight - 1,
-                    Options.TileWidth * Options.MapWidth, 3
+                    CurrentView.Left, CurrentView.Y + Options.EditorTileHeight * Options.MapHeight - 1,
+                    Options.EditorTileWidth * Options.MapWidth, 3
                 ), System.Drawing.Color.DimGray
             );
 
             //Vertical Left
             DrawTexture(
                 sWhiteTex, new RectangleF(0, 0, 1, 1),
-                new RectangleF(CurrentView.Left - 1, CurrentView.Y, 3, Options.MapHeight * Options.TileHeight),
+                new RectangleF(CurrentView.Left - 1, CurrentView.Y, 3, Options.MapHeight * Options.EditorTileHeight),
                 System.Drawing.Color.DimGray
             );
 
@@ -1283,8 +1283,8 @@ namespace Intersect.Editor.Core
             DrawTexture(
                 sWhiteTex, new RectangleF(0, 0, 1, 1),
                 new RectangleF(
-                    CurrentView.Left + Options.TileWidth * Options.MapWidth - 1, CurrentView.Y, 3,
-                    Options.MapHeight * Options.TileHeight
+                    CurrentView.Left + Options.EditorTileWidth * Options.MapWidth - 1, CurrentView.Y, 3,
+                    Options.MapHeight * Options.EditorTileHeight
                 ), System.Drawing.Color.DimGray
             );
         }
@@ -1319,8 +1319,8 @@ namespace Intersect.Editor.Core
             var x2 = Options.MapWidth;
             var y1 = 0;
             var y2 = Options.MapHeight;
-            var xoffset = CurrentView.Left + gridX * Options.TileWidth * Options.MapWidth;
-            var yoffset = CurrentView.Top + gridY * Options.TileHeight * Options.MapHeight;
+            var xoffset = CurrentView.Left + gridX * Options.EditorTileWidth * Options.MapWidth;
+            var yoffset = CurrentView.Top + gridY * Options.EditorTileHeight * Options.MapHeight;
 
             if (screenShotting)
             {
@@ -1375,23 +1375,23 @@ namespace Intersect.Editor.Core
                                 continue;
                             }
 
-                            float xpos = x * Options.TileWidth + xoffset;
-                            float ypos = y * Options.TileHeight + yoffset;
-                            if ((resource.Initial.Height + 1) * Options.TileHeight > Options.TileHeight)
+                            float xpos = x * Options.EditorTileWidth + xoffset;
+                            float ypos = y * Options.EditorTileHeight + yoffset;
+                            if ((resource.Initial.Height + 1) * Options.EditorTileHeight > Options.EditorTileHeight)
                             {
-                                ypos -= (resource.Initial.Height + 1) * Options.TileHeight - Options.TileHeight;
+                                ypos -= (resource.Initial.Height + 1) * Options.EditorTileHeight - Options.EditorTileHeight;
                             }
 
-                            if ((resource.Initial.Width + 1) * Options.TileWidth > Options.TileWidth)
+                            if ((resource.Initial.Width + 1) * Options.EditorTileWidth > Options.EditorTileWidth)
                             {
-                                xpos -= ((resource.Initial.Width + 1) * Options.TileWidth - Options.TileWidth) / 2;
+                                xpos -= ((resource.Initial.Width + 1) * Options.EditorTileWidth - Options.EditorTileWidth) / 2;
                             }
 
                             DrawTexture(
-                                res, xpos, ypos, resource.Initial.X * Options.TileWidth,
-                                resource.Initial.Y * Options.TileHeight,
-                                (resource.Initial.Width + 1) * Options.TileWidth,
-                                (resource.Initial.Height + 1) * Options.TileHeight, renderTarget
+                                res, xpos, ypos, resource.Initial.X * Options.EditorTileWidth,
+                                resource.Initial.Y * Options.EditorTileHeight,
+                                (resource.Initial.Width + 1) * Options.EditorTileWidth,
+                                (resource.Initial.Height + 1) * Options.EditorTileHeight, renderTarget
                             );
                         }
                         else
@@ -1405,16 +1405,16 @@ namespace Intersect.Editor.Core
                                 continue;
                             }
 
-                            float xpos = x * Options.TileWidth + xoffset;
-                            float ypos = y * Options.TileHeight + yoffset;
-                            if (res.Height > Options.TileHeight)
+                            float xpos = x * Options.EditorTileWidth + xoffset;
+                            float ypos = y * Options.EditorTileHeight + yoffset;
+                            if (res.Height > Options.EditorTileHeight)
                             {
-                                ypos -= res.Height - Options.TileHeight;
+                                ypos -= res.Height - Options.EditorTileHeight;
                             }
 
-                            if (res.Width > Options.TileWidth)
+                            if (res.Width > Options.EditorTileWidth)
                             {
-                                xpos -= (res.Width - Options.TileWidth) / 2;
+                                xpos -= (res.Width - Options.EditorTileWidth) / 2;
                             }
 
                             DrawTexture(res, xpos, ypos, 0, 0, res.Width, res.Height, renderTarget);
@@ -1427,8 +1427,8 @@ namespace Intersect.Editor.Core
 
                         if (animation != null)
                         {
-                            float xpos = x * Options.TileWidth + xoffset + Options.TileWidth / 2;
-                            float ypos = y * Options.TileHeight + yoffset + Options.TileHeight / 2;
+                            float xpos = x * Options.EditorTileWidth + xoffset + Options.EditorTileWidth / 2;
+                            float ypos = y * Options.EditorTileHeight + yoffset + Options.EditorTileHeight / 2;
                             if (tmpMap.Attributes[x, y] != null)
                             {
                                 var animInstance = tmpMap.GetAttributeAnimation(tmpMap.Attributes[x, y], animation.Id);
@@ -1481,8 +1481,8 @@ namespace Intersect.Editor.Core
             x2 = Options.MapWidth;
             y1 = 0;
             y2 = Options.MapHeight;
-            xoffset = CurrentView.Left + gridX * Options.TileWidth * Options.MapWidth;
-            yoffset = CurrentView.Top + gridY * Options.TileHeight * Options.MapHeight;
+            xoffset = CurrentView.Left + gridX * Options.EditorTileWidth * Options.MapWidth;
+            yoffset = CurrentView.Top + gridY * Options.EditorTileHeight * Options.MapHeight;
             if (gridX != 0 || gridY != 0)
             {
                 tmpMap = map;
@@ -1529,8 +1529,8 @@ namespace Intersect.Editor.Core
                     }
 
                     Texture2D eventTex = null;
-                    var destinationX = x * Options.TileWidth + xoffset;
-                    var destinationY = y * Options.TileHeight + yoffset;
+                    var destinationX = x * Options.EditorTileWidth + xoffset;
+                    var destinationY = y * Options.EditorTileHeight + yoffset;
                     var sourceX = 0;
                     var sourceY = 0;
                     var width = 0;
@@ -1562,22 +1562,22 @@ namespace Intersect.Editor.Core
                                 continue;
                             }
 
-                            sourceX = (int)tmpGraphic.X * Options.TileWidth;
-                            sourceY = (int)tmpGraphic.Y * Options.TileHeight;
-                            width = (tmpGraphic.Width + 1) * Options.TileWidth;
-                            height = (tmpGraphic.Height + 1) * Options.TileHeight;
+                            sourceX = (int)tmpGraphic.X * Options.EditorTileWidth;
+                            sourceY = (int)tmpGraphic.Y * Options.EditorTileHeight;
+                            width = (tmpGraphic.Width + 1) * Options.EditorTileWidth;
+                            height = (tmpGraphic.Height + 1) * Options.EditorTileHeight;
 
                             break;
                     }
 
-                    if (height > Options.TileHeight)
+                    if (height > Options.EditorTileHeight)
                     {
-                        destinationY -= (height - Options.TileHeight);
+                        destinationY -= (height - Options.EditorTileHeight);
                     }
 
-                    if (width > Options.TileWidth)
+                    if (width > Options.EditorTileWidth)
                     {
-                        destinationX -= (width  - Options.TileWidth) / 2;
+                        destinationX -= (width  - Options.EditorTileWidth) / 2;
                     }
 
                     DrawTexture(eventTex, destinationX, destinationY, sourceX, sourceY, width, height, renderTarget);
@@ -1599,7 +1599,7 @@ namespace Intersect.Editor.Core
             if (sScreenShotRenderTexture == null)
             {
                 sScreenShotRenderTexture = CreateRenderTexture(
-                    Options.MapWidth * Options.TileWidth, Options.MapHeight * Options.TileHeight
+                    Options.MapWidth * Options.EditorTileWidth, Options.MapHeight * Options.EditorTileHeight
                 );
             }
 
@@ -1835,8 +1835,8 @@ namespace Intersect.Editor.Core
             sFogUpdateTime = Timing.Global.Milliseconds;
 
             // Calculate the number of times the fog texture needs to be drawn to cover the map area.
-            var xCount = Globals.MapEditorWindow.picMap.Width * Options.TileWidth / fogTex.Width;
-            var yCount = Globals.MapEditorWindow.picMap.Height * Options.TileHeight / fogTex.Height;
+            var xCount = Globals.MapEditorWindow.picMap.Width * Options.EditorTileWidth / fogTex.Width;
+            var yCount = Globals.MapEditorWindow.picMap.Height * Options.EditorTileHeight / fogTex.Height;
 
             // Update the fog texture's position based on its speed and elapsed time.
             sFogCurrentX += elapsedTime / 1000f * currentMap.FogXSpeed * 2;
@@ -1857,8 +1857,8 @@ namespace Intersect.Editor.Core
                     DrawTexture(
                         fogTex, new RectangleF(0, 0, fogTex.Width, fogTex.Height),
                         new RectangleF(
-                            0 - Options.MapWidth * Options.TileWidth * 1f + x * fogTex.Width + drawX,
-                            0 - Options.MapHeight * Options.TileHeight * 1f + y * fogTex.Height + drawY, fogTex.Width,
+                            0 - Options.MapWidth * Options.EditorTileWidth * 1f + x * fogTex.Width + drawX,
+                            0 - Options.MapHeight * Options.EditorTileHeight * 1f + y * fogTex.Height + drawY, fogTex.Width,
                             fogTex.Height
                         ), System.Drawing.Color.FromArgb(currentMap.FogTransparency, 255, 255, 255), target
                     );
@@ -1872,7 +1872,7 @@ namespace Intersect.Editor.Core
             if (DarknessTexture == null)
             {
                 DarknessTexture = CreateRenderTexture(
-                    Options.TileWidth * Options.MapWidth * 3, Options.TileHeight * Options.MapHeight * 3
+                    Options.EditorTileWidth * Options.MapWidth * 3, Options.EditorTileHeight * Options.MapHeight * 3
                 );
             }
 
@@ -1996,8 +1996,8 @@ namespace Intersect.Editor.Core
             DrawTexture(
                 DarknessTexture, new RectangleF(0, 0, DarknessTexture.Width, DarknessTexture.Height),
                 new RectangleF(
-                    CurrentView.Left - Options.MapWidth * Options.TileWidth,
-                    CurrentView.Top - Options.MapHeight * Options.TileHeight, DarknessTexture.Width,
+                    CurrentView.Left - Options.MapWidth * Options.EditorTileWidth,
+                    CurrentView.Top - Options.MapHeight * Options.EditorTileHeight, DarknessTexture.Width,
                     DarknessTexture.Height
                 ), System.Drawing.Color.FromArgb(255, 255, 255, 255), target, MultiplyState
             );
@@ -2028,10 +2028,10 @@ namespace Intersect.Editor.Core
                             DrawTexture(
                                 lightTex, new RectangleF(0, 0, lightTex.Width, lightTex.Height),
                                 new RectangleF(
-                                    x * Options.TileWidth + Options.MapWidth * Options.TileWidth * 0 + CurrentView.Left,
-                                    y * Options.TileHeight +
-                                    Options.MapHeight * Options.TileHeight * 0 +
-                                    CurrentView.Top, Options.TileWidth, Options.TileHeight
+                                    x * Options.EditorTileWidth + Options.MapWidth * Options.EditorTileWidth * 0 + CurrentView.Left,
+                                    y * Options.EditorTileHeight +
+                                    Options.MapHeight * Options.EditorTileHeight * 0 +
+                                    CurrentView.Top, Options.EditorTileWidth, Options.EditorTileHeight
                                 ), System.Drawing.Color.White, target
                             );
                         }
@@ -2039,8 +2039,8 @@ namespace Intersect.Editor.Core
                 }
 
                 DrawBoxOutline(
-                    CurrentView.Left + Globals.CurTileX * Options.TileWidth,
-                    CurrentView.Top + Globals.CurTileY * Options.TileHeight, Options.TileWidth, Options.TileHeight,
+                    CurrentView.Left + Globals.CurTileX * Options.EditorTileWidth,
+                    CurrentView.Top + Globals.CurTileY * Options.EditorTileHeight, Options.EditorTileWidth, Options.EditorTileHeight,
                     System.Drawing.Color.White, target
                 );
             }

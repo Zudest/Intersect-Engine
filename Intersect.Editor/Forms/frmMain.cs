@@ -401,27 +401,27 @@ namespace Intersect.Editor.Forms
 
                     Core.Graphics.CurrentView.X -= xDiff;
                     Core.Graphics.CurrentView.Y -= yDiff;
-                    if (Core.Graphics.CurrentView.X > Options.MapWidth * Options.TileWidth)
+                    if (Core.Graphics.CurrentView.X > Options.MapWidth * Options.EditorTileWidth)
                     {
-                        Core.Graphics.CurrentView.X = Options.MapWidth * Options.TileWidth;
+                        Core.Graphics.CurrentView.X = Options.MapWidth * Options.EditorTileWidth;
                     }
 
-                    if (Core.Graphics.CurrentView.Y > Options.MapHeight * Options.TileHeight)
+                    if (Core.Graphics.CurrentView.Y > Options.MapHeight * Options.EditorTileHeight)
                     {
-                        Core.Graphics.CurrentView.Y = Options.MapHeight * Options.TileHeight;
+                        Core.Graphics.CurrentView.Y = Options.MapHeight * Options.EditorTileHeight;
                     }
 
                     if (Core.Graphics.CurrentView.X - Globals.MapEditorWindow.picMap.Width <
-                        -Options.TileWidth * Options.MapWidth * 2)
+                        -Options.EditorTileWidth * Options.MapWidth * 2)
                     {
-                        Core.Graphics.CurrentView.X = -Options.TileWidth * Options.MapWidth * 2 +
+                        Core.Graphics.CurrentView.X = -Options.EditorTileWidth * Options.MapWidth * 2 +
                                                       Globals.MapEditorWindow.picMap.Width;
                     }
 
                     if (Core.Graphics.CurrentView.Y - Globals.MapEditorWindow.picMap.Height <
-                        -Options.TileHeight * Options.MapHeight * 2)
+                        -Options.EditorTileHeight * Options.MapHeight * 2)
                     {
-                        Core.Graphics.CurrentView.Y = -Options.TileHeight * Options.MapHeight * 2 +
+                        Core.Graphics.CurrentView.Y = -Options.EditorTileHeight * Options.MapHeight * 2 +
                                                       Globals.MapEditorWindow.picMap.Height;
                     }
                 }

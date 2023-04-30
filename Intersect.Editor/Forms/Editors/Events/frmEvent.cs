@@ -232,16 +232,16 @@ namespace Intersect.Editor.Forms.Editors.Events
                         sourceBitmap,
                         new Rectangle(
                             pnlPreview.Width / 2 -
-                            (Options.TileWidth + CurrentPage.Graphic.Width * Options.TileWidth) / 2,
+                            (Options.EditorTileWidth + CurrentPage.Graphic.Width * Options.EditorTileWidth) / 2,
                             pnlPreview.Height / 2 -
-                            (Options.TileHeight + CurrentPage.Graphic.Height * Options.TileHeight) / 2,
-                            Options.TileWidth + CurrentPage.Graphic.Width * Options.TileWidth,
-                            Options.TileHeight + CurrentPage.Graphic.Height * Options.TileHeight
+                            (Options.EditorTileHeight + CurrentPage.Graphic.Height * Options.EditorTileHeight) / 2,
+                            Options.EditorTileWidth + CurrentPage.Graphic.Width * Options.EditorTileWidth,
+                            Options.EditorTileHeight + CurrentPage.Graphic.Height * Options.EditorTileHeight
                         ),
                         new Rectangle(
-                            CurrentPage.Graphic.X * Options.TileWidth, CurrentPage.Graphic.Y * Options.TileHeight,
-                            Options.TileWidth + CurrentPage.Graphic.Width * Options.TileWidth,
-                            Options.TileHeight + CurrentPage.Graphic.Height * Options.TileHeight
+                            CurrentPage.Graphic.X * Options.EditorTileWidth, CurrentPage.Graphic.Y * Options.EditorTileHeight,
+                            Options.EditorTileWidth + CurrentPage.Graphic.Width * Options.EditorTileWidth,
+                            Options.EditorTileHeight + CurrentPage.Graphic.Height * Options.EditorTileHeight
                         ), GraphicsUnit.Pixel
                     );
                 }

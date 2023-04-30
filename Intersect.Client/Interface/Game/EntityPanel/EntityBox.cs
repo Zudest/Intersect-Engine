@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 using Intersect.Client.Core;
@@ -45,6 +46,10 @@ namespace Intersect.Client.Interface.Game.EntityPanel
         public ImagePanel EntityFace;
 
         public ImagePanel EntityFaceContainer;
+
+        public ImagePanel EntityClassIcon;
+
+        public ImagePanel EntityClassIconContainer;
 
         public ImagePanel EntityInfoPanel;
 
@@ -148,6 +153,11 @@ namespace Intersect.Client.Interface.Game.EntityPanel
                 }
             }
 
+            EntityClassIconContainer = new ImagePanel(EntityInfoPanel, "EntityClassIconContainer");
+            EntityClassIcon = new ImagePanel(EntityClassIconContainer);
+            EntityClassIcon.SetSize(16, 16);
+            EntityClassIcon.AddAlignment(Alignments.Center);
+
             EventDesc = new RichLabel(EntityInfoPanel, "EventDescLabel");
 
             HpBackground = new ImagePanel(EntityInfoPanel, "HPBarBackground");
@@ -213,6 +223,8 @@ namespace Intersect.Client.Interface.Game.EntityPanel
                 }
             }
 
+            EntityClassIcon.RenderColor = EntityClassIconContainer.RenderColor;
+
             EntityWindow.Hide();
 
             mLastUpdateTime = Timing.Global.Milliseconds;
@@ -264,12 +276,12 @@ namespace Intersect.Client.Interface.Game.EntityPanel
             EventDesc.Show();
             MpBackground.Show();
             MpBar.Show();
-            MpTitle.Show();
+            //MpTitle.Show();
             MpLbl.Show();
             HpBackground.Show();
             HpBar.Show();
             HpLbl.Show();
-            HpTitle.Show();
+            //HpTitle.Show();
 
             TryShowGuildButton();
         }
@@ -402,6 +414,9 @@ namespace Intersect.Client.Interface.Game.EntityPanel
 
             //Update the event/entity face.
             UpdateImage();
+
+            //Update the class icon
+            UpdateClassIcon();
 
             IsHidden = true;
             if (EntityType != EntityType.Event)
@@ -547,14 +562,14 @@ namespace Intersect.Client.Interface.Game.EntityPanel
 
         private void UpdateMap()
         {
-            if (Globals.Me.MapInstance != null)
+            /*if (Globals.Me.MapInstance != null)
             {
                 EntityMap.SetText(Strings.EntityBox.map.ToString(Globals.Me.MapInstance.Name));
             }
             else
-            {
+            {*/
                 EntityMap.SetText(Strings.EntityBox.map.ToString(""));
-            }
+            //}
         }
 
         private static float SetTargetBarSize(float barRatio, int barSize)
@@ -838,6 +853,37 @@ namespace Intersect.Client.Interface.Game.EntityPanel
             else
             {
                 UpdateGauge(ExpBackground, ExpBar, CurExpSize, barDirectionSetting);
+            }
+        }
+
+        private void UpdateClassIcon()
+        {
+            //var faceTex = Globals.ContentManager.GetTexture(Framework.Content.TextureType.Face, MyEntity.Face);
+            var faceTex = Globals.ContentManager.GetTexture(Framework.Content.TextureType.Gui, "class.png");
+            if (ClassBase.TryGet(Globals.Me.Class, out var classDescriptor))
+            {
+                var classFaceTex = Globals.ContentManager.GetTexture(Framework.Content.TextureType.Gui, "class_" + classDescriptor.Name.ToLower(CultureInfo.InvariantCulture) + ".png");
+                if (classFaceTex != null)
+                {
+                    faceTex = classFaceTex;
+                }
+            }
+            
+            //faceTex = Globals.ContentManager.GetTexture(Framework.Content.TextureType.Gui, "friendtell.png");
+            var entityTex = MyEntity.Texture;
+            if (faceTex != null && faceTex != EntityFace.Texture)
+            {
+                EntityClassIcon.Texture = faceTex;
+                EntityClassIcon.RenderColor = MyEntity.Color ?? new Color(255, 255, 255, 255);
+                EntityClassIcon.SetTextureRect(0, 0, faceTex.GetWidth(), faceTex.GetHeight());
+                EntityClassIcon.SizeToContents();
+                Align.Center(EntityClassIcon);
+                EntityClassIcon.IsHidden = false;
+            }
+
+            if (EntityClassIcon.RenderColor != MyEntity.Color)
+            {
+                EntityClassIcon.RenderColor = MyEntity.Color;
             }
         }
 

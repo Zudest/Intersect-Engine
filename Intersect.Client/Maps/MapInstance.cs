@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Diagnostics;
 using System.Collections.Concurrent;
@@ -740,7 +740,8 @@ namespace Intersect.Client.Maps
                             itemTex, new FloatRect(0, 0, itemTex.GetWidth(), itemTex.GetHeight()),
                             new FloatRect(
                                 x, y,
-                                Options.TileWidth, Options.TileHeight
+                                //Options.TileWidth, Options.TileHeight //True tile size
+                                itemTex.GetWidth(), itemTex.GetHeight() //File size
                             ), itemBase.Color
                         );
                     }

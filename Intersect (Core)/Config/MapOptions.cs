@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
@@ -63,6 +63,16 @@ namespace Intersect.Config
         /// The width of each tile in pixels.
         /// </summary>
         public int TileWidth { get; set; } = 32;
+
+        /// <summary>
+        /// The height of each tile in pixels within the Map Editor.
+        /// </summary>
+        public int EditorTileHeight { get; set; } = 32;
+
+        /// <summary>
+        /// The width of each tile in pixels within the Map Editor.
+        /// </summary>
+        public int EditorTileWidth { get; set; } = 32;
 
         /// <summary>
         /// The time, in milliseconds, until the map is cleaned up.

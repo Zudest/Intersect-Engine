@@ -154,6 +154,10 @@ namespace Intersect
 
         public static int TileHeight => Instance.MapOpts.TileHeight;
 
+        public static int EditorTileWidth => Instance.MapOpts.EditorTileWidth;
+
+        public static int EditorTileHeight => Instance.MapOpts.EditorTileHeight;
+
         public static int EventWatchdogKillThreshhold => Instance.EventKillTheshhold;
 
         public static int MaxChatLength => Instance.ChatOpts.MaxChatLength;

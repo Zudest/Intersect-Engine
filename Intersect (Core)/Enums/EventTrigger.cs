@@ -1,4 +1,4 @@
-﻿namespace Intersect.Enums
+namespace Intersect.Enums
 {
 
     public enum EventTrigger
@@ -11,6 +11,8 @@
         Autorun,
 
         PlayerBump,
+
+        ActionButtonSocial,
 
     }
 

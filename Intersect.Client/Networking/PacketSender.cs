@@ -75,6 +75,11 @@ namespace Intersect.Client.Networking
             Network.SendPacket(new ActivateEventPacket(eventId));
         }
 
+        public static void SendActivateSocialEvent(Guid mapId, Guid eventId, int proximity)
+        {
+            Network.SendPacket(new ActivateSocialEventPacket(mapId, eventId, proximity));
+        }
+
         public static void SendEventResponse(byte response, Dialog ed)
         {
             Globals.EventDialogs.Remove(ed);

@@ -408,6 +408,10 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
                     }
 
                     break;
+                case ConditionTypes.IsSocialInteraction:
+                    Condition = new IsSocialInteraction();
+
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -572,6 +576,9 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
                     {
                         cmbCheckEquippedSlot.Items.Add(slot);
                     }
+
+                    break;
+                case ConditionTypes.IsSocialInteraction:
 
                     break;
                 default:
@@ -1400,6 +1407,10 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
             cmbCheckEquippedSlot.SelectedIndex = Options.EquipmentSlots.IndexOf(condition.Name);
         }
 
+        private void SetupFormValues(IsSocialInteraction condition)
+        {
+            
+        }
 
         #endregion
 
@@ -1596,6 +1607,11 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
         private void SaveFormValues(CheckEquippedSlot condition)
         {
             condition.Name = Options.EquipmentSlots[cmbCheckEquippedSlot.SelectedIndex];
+        }
+
+        private void SaveFormValues(IsSocialInteraction condition)
+        {
+            
         }
         #endregion
 

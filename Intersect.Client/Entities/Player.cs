@@ -330,6 +330,44 @@ namespace Intersect.Client.Entities
             }
         }
 
+        //Event Social Interaction 
+        public void TrySocialInteraction(Event evt)
+        {
+            int x = Globals.Me.X;
+            int y = Globals.Me.Y;
+            var map = Globals.Me.MapId;
+            int proximity = 5; //ZUDEST: TODO: This could be a parameter from the Event itself
+
+            if (evt == null)
+            {
+                return;
+            }
+
+            if (map == evt.MapId)
+            {
+                foreach (MapInstance eventMap in Maps.MapInstance.Lookup.Values)
+                {
+                    foreach (var en in eventMap.LocalEntities)
+                    {
+                        if (en.Value == null)
+                        {
+                            continue;
+                        }
+
+                        if (en.Value.MapId == map && GetDistanceTo(en.Value) <= proximity)
+                        {
+                            if (en.Value is Event && en.Value == evt)
+                            {
+                                //Talk to Event
+                                PacketSender.SendActivateSocialEvent(map, en.Key, proximity);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         //Item Processing
         public void SwapItems(int fromSlotIndex, int toSlotIndex)
         {

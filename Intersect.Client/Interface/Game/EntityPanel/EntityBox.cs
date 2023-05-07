@@ -111,6 +111,8 @@ namespace Intersect.Client.Interface.Game.EntityPanel
 
         public Button GuildLabel;
 
+        public Button SocialLabel;
+
         //Init
         public EntityBox(Canvas gameCanvas, EntityType entityType, Entity myEntity, bool playerBox = false)
         {
@@ -201,6 +203,12 @@ namespace Intersect.Client.Interface.Game.EntityPanel
             GuildLabel.Clicked += guildRequest_Clicked;
             GuildLabel.IsHidden = true;
 
+            SocialLabel = new Button(EntityInfoPanel, "SocialButton");
+            SocialLabel.SetText(Strings.EntityBox.social);
+            SocialLabel.SetToolTipText(Strings.EntityBox.socialtip.ToString(MyEntity?.Name));
+            SocialLabel.Clicked += socialRequest_Clicked;
+            SocialLabel.IsHidden = true;
+
             EntityStatusPanel = new ImagePanel(EntityWindow, "StatusArea");
 
             SetEntity(myEntity);
@@ -283,6 +291,7 @@ namespace Intersect.Client.Interface.Game.EntityPanel
             HpLbl.Show();
             //HpTitle.Show();
 
+            TryShowSocialButton();
             TryShowGuildButton();
         }
 
@@ -312,6 +321,7 @@ namespace Intersect.Client.Interface.Game.EntityPanel
                         PartyLabel.Hide();
                         FriendLabel.Hide();
                         GuildLabel.Hide();
+                        SocialLabel.Hide();
 
                         if (!PlayerBox)
                         {
@@ -343,6 +353,7 @@ namespace Intersect.Client.Interface.Game.EntityPanel
                     TradeLabel.Hide();
                     PartyLabel.Hide();
                     GuildLabel.Hide();
+                    SocialLabel.Hide();
                     FriendLabel.Hide();
                     EntityMap.Hide();
 
@@ -364,7 +375,8 @@ namespace Intersect.Client.Interface.Game.EntityPanel
                     TradeLabel.Hide();
                     PartyLabel.Hide();
                     FriendLabel.Hide();
-                    GuildLabel.Hide();
+                    GuildLabel.Hide(); 
+                    SocialLabel.Hide();
                     EntityMap.Hide();
 
                     break;
@@ -458,6 +470,15 @@ namespace Intersect.Client.Interface.Game.EntityPanel
                     FriendLabel.Show();
                     TryShowGuildButton();
                 }
+            }
+
+            if(MyEntity.Type == EntityType.Event)
+            {
+                TryShowSocialButton();
+            }
+            else
+            {
+                SocialLabel.Hide();
             }
 
             if (UpdateStatuses)
@@ -1091,6 +1112,29 @@ namespace Intersect.Client.Interface.Game.EntityPanel
         }
 
 
+        //Input Handlers
+        void socialRequest_Clicked(Base sender, ClickedEventArgs arguments)
+        {
+            if (Globals.Me.TargetIndex != Guid.Empty && Globals.Me.TargetIndex != Globals.Me.Id)
+            {
+                if (Globals.Me.CombatTimer < Timing.Global.Milliseconds)
+                {
+                    if(MyEntity is Event evt)
+                    {
+                        Globals.Me.TrySocialInteraction(evt);
+                    }
+                    else
+                    {
+                        PacketSender.SendChatMsg("Unable to start the social interaction.", 5);
+                    }
+                }
+                else
+                {
+                    PacketSender.SendChatMsg(Strings.Friends.InFight.ToString(), 4);
+                }
+            }
+        }
+
         void guildRequest_Clicked(Base sender, ClickedEventArgs arguments)
         {
             if (MyEntity is Player plyr && MyEntity != Globals.Me)
@@ -1130,6 +1174,18 @@ namespace Intersect.Client.Interface.Game.EntityPanel
             GuildLabel.IsHidden = !show;
         }
 
+        void TryShowSocialButton()
+        {
+            var show = false;
+            //If the event can be inspected and has something in the description then it shows the social button
+            //ZUDEST //TODO: add a flag for social enabled instead of just using the description
+            if (MyEntity is Event evt && !string.IsNullOrWhiteSpace(evt.Desc)) 
+            {
+                show = true;
+            }
+
+            SocialLabel.IsHidden = !show;
+        }
 
         public void Hide()
         {

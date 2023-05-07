@@ -39,6 +39,7 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
             this.rdoGlobalVariable = new DarkUI.Controls.DarkRadioButton();
             this.rdoGuildVariable = new DarkUI.Controls.DarkRadioButton();
             this.grpNumericVariable = new DarkUI.Controls.DarkGroupBox();
+            this.rdoTimeSystem = new DarkUI.Controls.DarkRadioButton();
             this.cmbCompareUserVar = new DarkUI.Controls.DarkComboBox();
             this.rdoVarCompareUserVar = new DarkUI.Controls.DarkRadioButton();
             this.cmbNumericComparitor = new DarkUI.Controls.DarkComboBox();
@@ -154,7 +155,6 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
             this.rdoManual = new DarkUI.Controls.DarkRadioButton();
             this.cmbItem = new DarkUI.Controls.DarkComboBox();
             this.lblItem = new System.Windows.Forms.Label();
-            this.rdoTimeSystem = new DarkUI.Controls.DarkRadioButton();
             this.grpConditional.SuspendLayout();
             this.grpVariable.SuspendLayout();
             this.grpSelectVariable.SuspendLayout();
@@ -342,6 +342,16 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
             this.grpNumericVariable.TabIndex = 51;
             this.grpNumericVariable.TabStop = false;
             this.grpNumericVariable.Text = "Numeric Variable:";
+            // 
+            // rdoTimeSystem
+            // 
+            this.rdoTimeSystem.AutoSize = true;
+            this.rdoTimeSystem.Location = new System.Drawing.Point(10, 186);
+            this.rdoTimeSystem.Name = "rdoTimeSystem";
+            this.rdoTimeSystem.Size = new System.Drawing.Size(85, 17);
+            this.rdoTimeSystem.TabIndex = 52;
+            this.rdoTimeSystem.Text = "Time System";
+            this.rdoTimeSystem.CheckedChanged += new System.EventHandler(this.rdoTimeSystem_CheckedChanged);
             // 
             // cmbCompareUserVar
             // 
@@ -948,7 +958,8 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
             "Item Equipped Is...",
             "Has X free Inventory slots...",
             "In Guild With At Least Rank...",
-            "Check Equipped Slot..."});
+            "Check Equipped Slot...",
+            "Is a Social Interaction..."});
             this.cmbConditionType.Location = new System.Drawing.Point(88, 13);
             this.cmbConditionType.Name = "cmbConditionType";
             this.cmbConditionType.Size = new System.Drawing.Size(183, 21);
@@ -1999,16 +2010,6 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
             this.lblItem.Size = new System.Drawing.Size(30, 13);
             this.lblItem.TabIndex = 2;
             this.lblItem.Text = "Item:";
-            // 
-            // rdoTimeSystem
-            // 
-            this.rdoTimeSystem.AutoSize = true;
-            this.rdoTimeSystem.Location = new System.Drawing.Point(10, 186);
-            this.rdoTimeSystem.Name = "rdoTimeSystem";
-            this.rdoTimeSystem.Size = new System.Drawing.Size(85, 17);
-            this.rdoTimeSystem.TabIndex = 52;
-            this.rdoTimeSystem.Text = "Time System";
-            this.rdoTimeSystem.CheckedChanged += new System.EventHandler(this.rdoTimeSystem_CheckedChanged);
             // 
             // EventCommandConditionalBranch
             // 

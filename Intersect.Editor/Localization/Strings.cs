@@ -363,6 +363,11 @@ namespace Intersect.Editor.Localization
             return EventConditionDesc.checkequippedslot.ToString(condition.Name);
         }
 
+        public static string GetEventConditionalDesc(IsSocialInteraction condition)
+        {
+            return EventConditionDesc.issocialinteraction.ToString();
+        }
+
         public static string GetVariableComparisonString(VariableComparison comparison)
         {
             return "";
@@ -2390,6 +2395,7 @@ Tick timer saved in server config.json.";
                 {19, @"In Guild With At Least Rank..." },
                 {20, @"Map Zone Type is..." },
                 {21, @"Check Equipped Slot..." },
+                {22, @"Is a Social Interaction..." },
             };
 
             public static LocalizedString endrange = @"End Range:";
@@ -2565,6 +2571,8 @@ Tick timer saved in server config.json.";
             public static LocalizedString beforetask = @", Before Task: {00}";
 
             public static LocalizedString checkequippedslot = @"Player has slot {00} occupied";
+
+            public static LocalizedString issocialinteraction = @"Is a Social Interaction";
 
             public static LocalizedString Class = @"Player's class is {00}";
 
@@ -2868,6 +2876,7 @@ Tick timer saved in server config.json.";
                 {1, @"Player Collide"},
                 {2, @"Autorun"},
                 {3, "Player Bump"},
+                {4, @"Action Button (Social)"},
             };
 
             public static LocalizedString VariableTrigger = @"Variable:";

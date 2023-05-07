@@ -186,6 +186,12 @@ namespace Intersect.Server.Entities
         public int MapAutorunEvents { get; private set; }
 
         /// <summary>
+        /// Used when an interaction with an event is through the Social button.
+        /// </summary>
+        [NotMapped, JsonIgnore]
+        public bool isSocialInteractionEvent { get; private set; }
+
+        /// <summary>
         /// References the in-memory copy of the guild for this player, reference this instead of the Guild property below.
         /// </summary>
         [NotMapped] [JsonIgnore] public Guild Guild { get; set; }
@@ -5982,11 +5988,13 @@ namespace Intersect.Server.Entities
 
         public void TryActivateEvent(Guid eventId)
         {
+            this.isSocialInteractionEvent = false;
+
             foreach (var evt in EventLookup)
             {
                 if (evt.Value.PageInstance != null && evt.Value.PageInstance.Id == eventId)
                 {
-                    if (evt.Value.PageInstance.Trigger != EventTrigger.ActionButton)
+                    if (evt.Value.PageInstance.Trigger != EventTrigger.ActionButton && evt.Value.PageInstance.Trigger != EventTrigger.ActionButtonSocial)
                     {
                         return;
                     }
@@ -6601,6 +6609,43 @@ namespace Intersect.Server.Entities
 
                             var newStack = new CommandInstance(evt.Value.PageInstance.MyPage);
                             evt.Value.CallStack.Push(newStack);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void TryActivateSocialEvent(Guid mapId, Guid eventId, int proximity)
+        {
+            foreach (var evt in EventLookup)
+            {
+                if (evt.Value.MapId == mapId)
+                {
+                    if (evt.Value.PageInstance != null && evt.Value.PageInstance.MapId == mapId && evt.Value.BaseEvent.Id == eventId)
+                    {
+                        if(!(proximity <= 5)) //ZUDEST TODO: This could be a parameter from the Event itself
+                        {
+                            return;
+                        }
+
+                        if (evt.Value.PageInstance.Trigger != EventTrigger.ActionButtonSocial)
+                        {
+                            return;
+                        }
+
+                        if (evt.Value.CallStack.Count != 0)
+                        {
+                            return;
+                        }
+
+                        this.isSocialInteractionEvent = true;
+
+                        var newStack = new CommandInstance(evt.Value.PageInstance.MyPage);
+                        evt.Value.CallStack.Push(newStack);
+
+                        if (!evt.Value.Global)
+                        {
+                            evt.Value.PageInstance.TurnTowardsPlayer();
                         }
                     }
                 }

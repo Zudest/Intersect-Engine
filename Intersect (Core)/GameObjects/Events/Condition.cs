@@ -46,6 +46,8 @@ namespace Intersect.GameObjects.Events
 
         CheckEquipment,
 
+        IsSocialInteraction,
+
     }
 
     public partial class Condition
@@ -348,6 +350,13 @@ namespace Intersect.GameObjects.Events
         public override ConditionTypes Type { get; } = ConditionTypes.CheckEquipment;
 
         public string Name { get; set; }
+
+    }
+
+    public partial class IsSocialInteraction : Condition
+    {
+
+        public override ConditionTypes Type { get; } = ConditionTypes.IsSocialInteraction;
 
     }
 

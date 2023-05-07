@@ -1333,6 +1333,18 @@ namespace Intersect.Server.Networking
             player.TryActivateEvent(packet.EventId);
         }
 
+        //ActivateSocialEventPacket
+        public void HandlePacket(Client client, ActivateSocialEventPacket packet)
+        {
+            var player = client?.Entity;
+            if (player == null)
+            {
+                return;
+            }
+
+            player.TryActivateSocialEvent(packet.MapId, packet.EventId, packet.Proximity);
+        }
+
         //EventResponsePacket
         public void HandlePacket(Client client, EventResponsePacket packet)
         {

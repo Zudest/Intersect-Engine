@@ -838,6 +838,10 @@ namespace Intersect.Client.Localization
 
             public static LocalizedString friendtip = "Send {00} a friend request.";
 
+            public static LocalizedString social = "Social";
+
+            public static LocalizedString socialtip = "Start a social interaction.";
+
             public static LocalizedString level = @"Lv. {00}";
 
             public static LocalizedString map = @"{00}";

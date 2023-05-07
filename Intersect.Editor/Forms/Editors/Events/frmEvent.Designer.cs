@@ -730,7 +730,8 @@ namespace Intersect.Editor.Forms.Editors.Events
             "Action Button",
             "Player Touch",
             "Autorun",
-            "Projectile Hit"});
+            "Projectile Hit",
+            "Action Button (Social)"});
             this.cmbTrigger.Location = new System.Drawing.Point(6, 17);
             this.cmbTrigger.Name = "cmbTrigger";
             this.cmbTrigger.Size = new System.Drawing.Size(301, 21);

@@ -515,6 +515,15 @@ namespace Intersect.Server.Entities.Events
             return player.Map?.ZoneType == condition.ZoneType;
         }
 
+        public static bool MeetsCondition(
+            IsSocialInteraction condition,
+            Player player,
+            Event eventInstance,
+            QuestBase questBase)
+        {
+            return player.isSocialInteractionEvent;
+        }
+
         //Variable Comparison Processing
 
         public static bool CheckVariableComparison(

@@ -235,7 +235,7 @@ namespace Intersect.Client.Interface.Game.EntityPanel
 
             EntityWindow.Hide();
 
-            mLastUpdateTime = Timing.Global.Milliseconds;
+            mLastUpdateTime = Timing.Global.MillisecondsUtc;
         }
 
         public void SetEntity(Entity entity)
@@ -422,7 +422,7 @@ namespace Intersect.Client.Interface.Game.EntityPanel
             UpdateSpellStatus();
 
             //Time since this window was last updated (for bar animations)
-            var elapsedTime = (Timing.Global.Milliseconds - mLastUpdateTime) / 1000.0f;
+            var elapsedTime = (Timing.Global.MillisecondsUtc - mLastUpdateTime) / 1000.0f;
 
             //Update the event/entity face.
             UpdateImage();
@@ -492,7 +492,7 @@ namespace Intersect.Client.Interface.Game.EntityPanel
                 itm.Value.Update();
             }
 
-            mLastUpdateTime = Timing.Global.Milliseconds;
+            mLastUpdateTime = Timing.Global.MillisecondsUtc;
         }
 
         public void UpdateSpellStatus()

@@ -605,6 +605,10 @@ namespace Intersect.Client.Localization
 
             public static LocalizedString toofast = @"You are chatting too fast!";
 
+            public static LocalizedString ToggleLogButtonToolTip = @"Toggle chat log visibility";
+            
+            public static LocalizedString ClearLogButtonToolTip = @"Clear chat log messages";
+
             public static Dictionary<ChatboxTab, LocalizedString> ChatTabButtons = new Dictionary<Enums.ChatboxTab, LocalizedString>() {
                 { ChatboxTab.All, @"All" },
                 { ChatboxTab.Local, @"Local" },
@@ -1190,6 +1194,9 @@ namespace Intersect.Client.Localization
             public static LocalizedString Learn = @"Learn {00}";
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString Cast = @"Cast {00}";
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString Drop = @"Drop {00}";
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -1707,6 +1714,9 @@ namespace Intersect.Client.Localization
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString AutoCloseWindows = @"Auto-close Windows";
+            
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public static LocalizedString AutoToggleChatLog = @"Auto-toggle chat log visibility";
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public static LocalizedString Cancel = @"Cancel";

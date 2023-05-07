@@ -4828,6 +4828,9 @@ namespace Intersect.Server.Entities
                     if (sendUpdate)
                     {
                         PacketSender.SendPlayerSpellUpdate(this, i);
+                        PacketSender.SendChatMsg(this,
+                            Strings.Player.spelltaughtlevelup.ToString(SpellBase.GetName(spell.SpellId)),
+                            ChatMessageType.Experience, CustomColors.Alerts.Info, Name);
                     }
 
                     return true;

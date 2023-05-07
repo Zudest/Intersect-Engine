@@ -2188,6 +2188,7 @@ namespace Intersect.Client.Entities
                 {
                     Dir = MoveDir;
                     PacketSender.SendDirection(Dir);
+                    PickLastDirection(Dir);
                 }
 
                 if (blockedBy != null && mLastBumpedEvent != blockedBy && blockedBy is Event)

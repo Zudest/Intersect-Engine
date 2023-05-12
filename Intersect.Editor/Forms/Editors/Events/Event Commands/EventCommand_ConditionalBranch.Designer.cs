@@ -1533,11 +1533,11 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
             this.cmbLevelStat.FormattingEnabled = true;
             this.cmbLevelStat.Items.AddRange(new object[] {
             "Level",
-            "Attack",
-            "Defense",
+            "Attack / Precision",
+            "Defense / Tactics",
             "Speed",
-            "Ability Power",
-            "Magic Resist"});
+            "Ability Power / Adaptability",
+            "Magic Resist / Resistance"});
             this.cmbLevelStat.Location = new System.Drawing.Point(79, 23);
             this.cmbLevelStat.Name = "cmbLevelStat";
             this.cmbLevelStat.Size = new System.Drawing.Size(177, 21);

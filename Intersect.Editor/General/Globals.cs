@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -182,13 +182,13 @@ namespace Intersect.Editor.General
             switch (statnum)
             {
                 case (int) Stat.Attack:
-                    return "Attack";
+                    return "Attack / Precision";
                 case (int) Stat.AbilityPower:
-                    return "Ability Power";
+                    return "Ability Power / Adaptability";
                 case (int) Stat.Defense:
-                    return "Defense";
+                    return "Defense / Tactics";
                 case (int) Stat.MagicResist:
-                    return "Magic Resist";
+                    return "Magic Resist / Resistance";
                 case (int) Stat.Speed:
                     return "Speed";
                 default:
